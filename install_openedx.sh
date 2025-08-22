@@ -140,15 +140,18 @@ print_success "Đã cài đặt Tutor"
 print_status "Đang cấu hình Tutor..."
 
 # Auto-configure without interactive prompts
-./venv/bin/tutor config save \
-  --set PLATFORM_NAME="hoc tien tuc" \
-  --set CONTACT_EMAIL="conghuancse@gmail.com" \
-  --set LMS_HOST="local.openedx.io" \
-  --set CMS_HOST="studio.local.openedx.io" \
-  --set ENABLE_HTTPS=false \
-  --set LANGUAGE_CODE="en"
+# Auto-configure with localhost and ports
+./venv/bin/tutor config save 
+  --set PLATFORM_NAME="hoc tien tuc" 
+  --set CONTACT_EMAIL="conghuancse@gmail.com" 
+  --set LMS_HOST="localhost:1433" 
+  --set CMS_HOST="localhost:1434" 
+  --set ENABLE_HTTPS=false 
+  --set LANGUAGE_CODE="en" 
+  --set CADDY_HTTP_PORT=1433 
+  --set CADDY_HTTP_PORT_CMS=1434
 
-print_success "Đã cấu hình Tutor"
+print_success "Đã cấu hình Tutor với ports"
 
 # =======================================================
 # BƯỚC 6: CẬP NHẬT /etc/hosts
@@ -214,8 +217,8 @@ print_status "Đang kiểm tra trạng thái..."
 
 sleep 10
 
-LMS_STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://local.openedx.io || echo "000")
-STUDIO_STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://studio.local.openedx.io || echo "000")
+LMS_STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:1433 || echo "000")
+STUDIO_STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:1434 || echo "000")
 
 # =======================================================
 # HOÀN THÀNH
@@ -227,11 +230,11 @@ echo "🎉 CÀI ĐẶT OPEN EDX HOÀN TẤT!"
 echo "=============================================="
 echo ""
 echo "📚 LMS (Learning Management System):"
-echo "   URL: http://local.openedx.io"
+echo "   URL: http://localhost:1433"
 echo "   Status: $LMS_STATUS"
 echo ""
 echo "🏫 Studio (Course Management):"
-echo "   URL: http://studio.local.openedx.io" 
+echo "   URL: http://localhost:1434" 
 echo "   Status: $STUDIO_STATUS"
 echo ""
 echo "👤 Admin Account:"
@@ -257,5 +260,7 @@ else
 fi
 
 echo ""
-echo "🚀 Bạn có thể bắt đầu sử dụng Open edX ngay bây giờ!"
+echo "🚀 Bạn có thể truy cập:"
+echo "   - LMS: http://localhost:1433"
+echo "   - Studio: http://localhost:1434"
 echo "=============================================="
