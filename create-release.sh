@@ -118,14 +118,20 @@ else
 fi
 
 print_info "3. Commit changes"
-git add tutor/__about__.py
-if [ -d "changelog.d" ]; then
-    git add changelog.d/
+# Check if there are any changes to commit
+if [ -n "$(git status --porcelain)" ]; then
+    git add tutor/__about__.py
+    if [ -d "changelog.d" ]; then
+        git add changelog.d/
+    fi
+    git commit -m "Bump version to $VERSION"
+    print_success "Changes đã được commit"
+else
+    print_info "Không có changes để commit"
 fi
-git commit -m "Bump version to $VERSION"
 
-print_info "4. Push changes to main branch"
-git push origin main
+print_info "4. Push changes to current branch"
+git push origin $CURRENT_BRANCH
 
 print_info "5. Tạo tag: $TAG_NAME"
 git tag $TAG_NAME
