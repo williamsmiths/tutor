@@ -10,12 +10,12 @@ Installing Tutor Main
 
 Running Tutor Main requires more than setting a few configuration variables: because there are so many Open edX settings, version numbers, etc. which may change between the latest release and the current master branch, Tutor Main is actually maintained as a separate branch of the Tutor repository. To install Tutor Main, you should install Tutor from the "main" branch of the source repository. To do so, run::
 
-    git clone --branch=main https://github.com/overhangio/tutor.git
+    git clone --branch=main https://github.com/williamsmiths/tutor.git
     pip install -e "./tutor[full]"
 
 As usual, it is strongly recommended to run the command above in a `Python virtual environment <https://docs.python.org/3/tutorial/venv.html>`__.
 
-In addition to installing Tutor Main itself, this will install automatically the main versions of all official Tutor plugins (which are enumerated in `plugins.txt <https://github.com/overhangio/tutor/tree/main/requirements/plugins.txt>`_). Alternatively, if you wish to hack on an official plugin or install a custom plugin, you can clone that plugin's repository and install it. For instance::
+In addition to installing Tutor Main itself, this will install automatically the main versions of all official Tutor plugins (which are enumerated in `plugins.txt <https://github.com/williamsmiths/tutor/tree/main/requirements/plugins.txt>`_). Alternatively, if you wish to hack on an official plugin or install a custom plugin, you can clone that plugin's repository and install it. For instance::
 
     git clone --branch=main https://github.com/myorganization/tutor-contrib-myplugin.git
     pip install -e ./tutor-contrib-myplugin
@@ -34,7 +34,7 @@ To pull the latest upstream changes, you should first upgrade Tutor Main::
     cd ./tutor
     git pull
 
-Then, you will have to generate a more recent version of the main Docker images. Images for running Tutor Main are published daily to docker.io (see `here <https://hub.docker.com/r/overhangio/openedx/tags?page=1&ordering=last_updated&name=main>`__). You can fetch the latest images with::
+Then, you will have to generate a more recent version of the main Docker images. Images for running Tutor Main are published daily to docker.io (see `here <https://hub.docker.com/r/williamsmiths/openedx/tags?page=1&ordering=last_updated&name=main>`__). You can fetch the latest images with::
 
     tutor images pull all
 

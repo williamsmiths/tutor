@@ -56,7 +56,7 @@ Because Docker containers are becoming an industry-wide standard, that means tha
 Where can I try Open edX and Tutor?
 -----------------------------------
 
-A sandbox Open edX platform is available at https://sandbox.openedx.edly.io. This platform was deployed using Tutor and the `Indigo theme <https://github.com/overhangio/indigo>`__. Feel free to play around with the following credentials:
+A sandbox Open edX platform is available at https://sandbox.openedx.edly.io. This platform was deployed using Tutor and the `Indigo theme <https://github.com/williamsmiths/indigo>`__. Feel free to play around with the following credentials:
 
 * Admin user: username=admin email=admin@overhang.io password=admin
 * Student user: username=student email=student@overhang.io password=student

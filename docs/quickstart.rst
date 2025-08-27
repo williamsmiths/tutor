@@ -7,7 +7,7 @@ Quickstart (1-click install)
 
 .. include:: download/pip.rst
 
-Or `download <https://github.com/overhangio/tutor/releases>`_ the pre-compiled binary and place the ``tutor`` executable in your path:
+Or `download <https://github.com/williamsmiths/tutor/releases>`_ the pre-compiled binary and place the ``tutor`` executable in your path:
 
 .. include:: download/binary.rst
 

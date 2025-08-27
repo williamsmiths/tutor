@@ -10,11 +10,11 @@ What should you do if you have a problem?
 
 1. Read the error logs that appear in the console. When running a single server platform as daemon, you can view the logs with the ``tutor local logs`` command. (see :ref:`logging` below)
 2. Check if your problem already has a solution right here in the :ref:`troubleshooting` section.
-3. Search for your problem in the `open and closed GitHub issues <https://github.com/overhangio/tutor/issues?utf8=%E2%9C%93&q=is%3Aissue>`_.
+3. Search for your problem in the `open and closed GitHub issues <https://github.com/williamsmiths/tutor/issues?utf8=%E2%9C%93&q=is%3Aissue>`_.
 4. Search for your problem in the (now legacy) `Tutor community forums <https://discuss.overhang.io>`__.
 5. Search for your problem in the `Open edX community forum <https://discuss.openedx.org/>`__.
 6. If despite all your efforts, you can't solve the problem by yourself, you should discuss it in the `Open edX community forum <https://discuss.openedx.org>`__. Please give as many details about your problem as possible! As a rule of thumb, **people will not dedicate more time to solving your problem than you took to write your question**. You should tag your topic with "tutor" or the corresponding Tutor plugin name ("tutor-discovery", etc.) in order to notify the maintainers.
-7. If you are *absolutely* positive that you are facing a technical issue with Tutor, and not with Open edX, not with your server, not your custom configuration, then, and only then, should you open an issue on `GitHub <https://github.com/overhangio/tutor/issues/>`__. You *must* follow the instructions from the issue template!!! If you do not follow this procedure, your GitHub issues will be mercilessly closed 🤯.
+7. If you are *absolutely* positive that you are facing a technical issue with Tutor, and not with Open edX, not with your server, not your custom configuration, then, and only then, should you open an issue on `GitHub <https://github.com/williamsmiths/tutor/issues/>`__. You *must* follow the instructions from the issue template!!! If you do not follow this procedure, your GitHub issues will be mercilessly closed 🤯.
 
 Do you need professional assistance with your Open edX platform? `Edly <https://edly.io>`__ provides online support as part of its `Open edX installation service <https://edly.io/services/open-edx-installation/>`__.
 
@@ -169,7 +169,7 @@ This issue should only happen in development mode. Long story short, it is solve
 
     tutor dev run lms ./manage.py lms waffle_switch block_structure.invalidate_cache_on_publish on --create
 
-To learn more, check out `this GitHub issue <https://github.com/overhangio/tutor/issues/302>`__.
+To learn more, check out `this GitHub issue <https://github.com/williamsmiths/tutor/issues/302>`__.
 
 .. _high_resource_consumption:
 
@@ -209,13 +209,13 @@ If that does not work, follow the tutorial above for :ref:`High resource consump
 Can't override styles using Indigo Theme for MFEs
 -------------------------------------------------
 
-The solution can be found in `tutor-indigo <https://github.com/overhangio/tutor-indigo?tab=readme-ov-file#cant-override-styles-using-indigo-theme-for-mfes>`__ documentation.
+The solution can be found in `tutor-indigo <https://github.com/williamsmiths/tutor-indigo?tab=readme-ov-file#cant-override-styles-using-indigo-theme-for-mfes>`__ documentation.
 
 
 NPM Dependency Conflict When overriding ``@edx/frontend-component-header`` or ``@edx/frontend-component-footer``
 ----------------------------------------------------------------------------------------------------------------
 
-The detailed steps are mentioned in `tutor-mfe <https://github.com/overhangio/tutor-mfe?tab=readme-ov-file#npm-dependency-conflict-when-overriding-edxfrontend-component-header-or-edxfrontend-component-footer>`__ documentation.
+The detailed steps are mentioned in `tutor-mfe <https://github.com/williamsmiths/tutor-mfe?tab=readme-ov-file#npm-dependency-conflict-when-overriding-edxfrontend-component-header-or-edxfrontend-component-footer>`__ documentation.
 
 "Plugin 'mysql_native_password' is not loaded"
 ----------------------------------------------

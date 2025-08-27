@@ -41,9 +41,9 @@ Many plugins are available from plugin indexes. These indexes are lists of plugi
     tutor plugins update
     tutor plugins search
 
-The "main" and "contrib" indexes include a curated list of plugins that are well maintained and introduce useful features to Open edX. These indexes are maintained by `Edly <https://edly.io>`__. For more information about these indexes, refer to the official `overhangio/tpi <https://github.com/overhangio/tpi>`__ repository.
+The "main" and "contrib" indexes include a curated list of plugins that are well maintained and introduce useful features to Open edX. These indexes are maintained by `Edly <https://edly.io>`__. For more information about these indexes, refer to the official `williamsmiths/tpi <https://github.com/williamsmiths/tpi>`__ repository.
 
-Thanks to these indexes, it is very easy to download and upgrade plugins. For instance, to install the `notes plugin <https://github.com/overhangio/tutor-notes/>`__::
+Thanks to these indexes, it is very easy to download and upgrade plugins. For instance, to install the `notes plugin <https://github.com/williamsmiths/tutor-notes/>`__::
 
     tutor plugins install notes
 
@@ -59,4 +59,4 @@ To disable an index, for instance "contrib", use the ``plugins index remove`` co
 
     tutor plugins index remove contrib
 
-For more information about these indexes, check the `official Tutor plugin indexes (TPI) <https://github.com/overhangio/tpi/>`__ repository.
+For more information about these indexes, check the `official Tutor plugin indexes (TPI) <https://github.com/williamsmiths/tpi/>`__ repository.

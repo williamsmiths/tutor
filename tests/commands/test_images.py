@@ -56,7 +56,7 @@ class ImagesTests(PluginsTestCase, TestCommandMixin):
         self.assertIsNone(result.exception)
         self.assertEqual(0, result.exit_code)
         self.assertRegex(
-            result.output, rf"docker.io/overhangio/openedx:{__version__}\n"
+            result.output, rf"docker.io/williamsmiths/openedx:{__version__}\n"
         )
 
     def test_images_printtag_plugin(self) -> None:

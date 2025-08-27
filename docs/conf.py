@@ -88,7 +88,7 @@ html_theme_options = {
 }
 html_context = {
     "display_github": True,
-    "github_user": "overhangio",
+    "github_user": "williamsmiths",
     "github_repo": "tutor",
     "github_version": "master",
     "conf_py_path": "/docs/",
@@ -101,7 +101,7 @@ html_favicon = "./img/favicon.png"
 html_show_sourcelink = False
 html_display_github = True
 html_show_sphinx = False
-html_github_user = "overhangio"
+html_github_user = "williamsmiths"
 html_github_repo = "tutor"
 # Images do not link to themselves
 html_scaled_image_link = False

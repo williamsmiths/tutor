@@ -8,7 +8,7 @@ Setting up your development environment
 
 Start by cloning the Tutor repository::
 
-    git clone https://github.com/overhangio/tutor.git
+    git clone https://github.com/williamsmiths/tutor.git
     cd tutor/
 
 Install requirements
@@ -73,13 +73,13 @@ Releasing a version includes two phases:
 1. Add changes and generate individual changelog entries:
 
 - run ``make changelog-entry`` (or ``scriv create``) command - It will create changelog entries in a folder named changelog.d for the changes user has done for releasing a new version.
-- Commit and merge all the changes including the changelog entries. e.g this `commit <https://github.com/overhangio/tutor-discovery/commit/e30a78936d63439bde069aeff11960585bd81592>`__.
+- Commit and merge all the changes including the changelog entries. e.g this `commit <https://github.com/williamsmiths/tutor-discovery/commit/e30a78936d63439bde069aeff11960585bd81592>`__.
 
 2. Update version and compile changelogs:
 
 - Now bump the ``__version__`` value in ``tutor/__about__.py``. (see :ref:`versioning` below).
 - Collect changelog entries with ``make changelog``(or ``scriv collect``) command - It will delete all previous changelog entries from changelog.d folder and will add records of those entries to CHANGELOG.md file.
-- Create a commit with the version changelog e.g. this `commit <https://github.com/overhangio/tutor-discovery/commit/18cce706a794c4968e713f0f72c6b912a2ff1e53>`__.
+- Create a commit with the version changelog e.g. this `commit <https://github.com/williamsmiths/tutor-discovery/commit/18cce706a794c4968e713f0f72c6b912a2ff1e53>`__.
 - Run tests with ``make test``.
 - Push your changes to the upstream repository.
 
@@ -117,7 +117,7 @@ Contributing to Tutor
 Contributions to Tutor and its plugins are highly encouraged. Please adhere to the following guidelines:
 
 - **General Discussion**: Before addressing anything other than clear-cut bugs, start a discussion on the `official Open edX forum <https://discuss.openedx.org>`__. This facilitates reaching a consensus on a high-level solution.
-- **Pull Requests**: For changes to Tutor core or plugin-specific modifications, open a pull request on the `Tutor repository <https://github.com/overhangio/tutor/pulls>`__ or the corresponding plugin repository. Take care to target your pull request to the proper branch:
+- **Pull Requests**: For changes to Tutor core or plugin-specific modifications, open a pull request on the `Tutor repository <https://github.com/williamsmiths/tutor/pulls>`__ or the corresponding plugin repository. Take care to target your pull request to the proper branch:
 
   - Target ``release`` if your change is compatible with the latest official Open edX release and it carries no major backwards-incompatibility nor risk of regression. This ensures that the latest stable release of Tutor benefits from bug fixes and incremental improvements. Once merged, your change will automatically be forward-ported to ``main``.
   - Target ``main`` if your change is only compatible with Open edX's master branches and/or your change would be disruptive to production Tutor site operators. If merged, your change will become part of the next pending release branch (described below) and then incorporated into ``release`` at the time of the next named Open edX release.

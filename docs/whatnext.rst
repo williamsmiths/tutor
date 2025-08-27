@@ -18,7 +18,7 @@ To get a glimpse of the possibilities of Open edX, we recommend you import the `
 Making Open edX look better
 ---------------------------
 
-Tutor makes it easy to :ref:`install <theming>` and :ref:`develop <theme_development>` your own themes. We also provide `Indigo <https://github.com/overhangio/indigo>`__: a free, customizable theme that you can install today.
+Tutor makes it easy to :ref:`install <theming>` and :ref:`develop <theme_development>` your own themes. We also provide `Indigo <https://github.com/williamsmiths/indigo>`__: a free, customizable theme that you can install today.
 
 Adding features
 ---------------
@@ -38,7 +38,7 @@ Yes, Tutor comes with Kubernetes deployment support :ref:`out of the box <k8s>`.
 Gathering insights and analytics about Open edX
 -----------------------------------------------
 
-Check out `Cairn <https://github.com/overhangio/tutor-cairn>`__, the next-generation analytics solution for Open edX.
+Check out `Cairn <https://github.com/williamsmiths/tutor-cairn>`__, the next-generation analytics solution for Open edX.
 
 Meeting the community
 ---------------------

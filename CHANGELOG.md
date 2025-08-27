@@ -116,7 +116,7 @@ LMS_HOST etc.
 
 - [Bugfix] Don't build uwsgi with XML support (by @feanil)
 
-- [Feature] With the new forum v2 application, users have a choice to use MongoDB or MySQL as a storage backend, course per course. New users will automatically start using MySQL, while existing users will be responsible for migrating their data themselves (before the Teak release). Upgrade instructions are available here: https://github.com/overhangio/tutor-forum/#installation. (by @regisb)
+- [Feature] With the new forum v2 application, users have a choice to use MongoDB or MySQL as a storage backend, course per course. New users will automatically start using MySQL, while existing users will be responsible for migrating their data themselves (before the Teak release). Upgrade instructions are available here: https://github.com/williamsmiths/tutor-forum/#installation. (by @regisb)
 
 - 💥[Improvement] Get rid of the `is_docker_rootless` template filter, which was used only by Elasticsearch. (by @regisb)
 
@@ -609,7 +609,7 @@ pen-release/palm.master --repo-dir=test-course/course`. (by @regisb)
 
 ## v14.0.1 (2022-06-13)
 
-- [Bugfix] Fix missing tables on migration from maple ([#689](https://github.com/overhangio/tutor/issues/689)). (by @ibrmora)
+- [Bugfix] Fix missing tables on migration from maple ([#689](https://github.com/williamsmiths/tutor/issues/689)). (by @ibrmora)
 - [Bugfix] Fix plugin patches in cms.env.yml template.
 
 ## v14.0.0 (2022-06-09)
@@ -659,7 +659,7 @@ pen-release/palm.master --repo-dir=test-course/course`. (by @regisb)
 - [Bugfix] Fix a race condition that could prevent a newly provisioned LMS container from starting due to a `FileExistsError` when creating data folders.
 - [Deprecation] Mark `tutor dev runserver` as deprecated in favor of `tutor dev start`. Since `start` now supports bind-mounting and breakpoint debugging, `runserver` is redundant and will be removed in a future release. (by @kdmccormick)
 - [Improvement] Allow breakpoint debugging when attached to a service via `tutor dev start SERVICE`. (by @kdmccormick)
-- [Security] Apply rate limiting security fix (see [commit](https://github.com/overhangio/edx-platform/commit/b5723e416e628cac4fa84392ca13e1b72817674f)). (by @regisb)
+- [Security] Apply rate limiting security fix (see [commit](https://github.com/williamsmiths/edx-platform/commit/b5723e416e628cac4fa84392ca13e1b72817674f)). (by @regisb)
 - [Feature] Introduce the ``-m/--mount`` option in ``local`` and ``dev`` commands to auto-magically bind-mount folders from the host. (by @regisb)
 - [Feature] Add `tutor dev quickstart` command, which is similar to `tutor local quickstart`, except that it uses dev containers instead of local production ones and includes some other small differences for the convience of Open edX developers. This should remove some friction from the Open edX development setup process, which previously required that users provision using local producation containers (`tutor local quickstart`) but then stop them and switch to dev containers (`tutor local stop && tutor dev start -d`). (by @kdmccormick)
 - 💥[Improvement] Make it possible to run `tutor k8s exec <command with multiple arguments>` (#636). As a consequence, it is no longer possible to run quoted commands: `tutor k8s exec "<some command>"`. Instead, you should remove the quotes: `tutor k8s exec <some command>`. (by @regisb)
@@ -704,7 +704,7 @@ pen-release/palm.master --repo-dir=test-course/course`. (by @regisb)
 
 ## v13.1.4 (2022-02-08)
 
-- [Security] Fix vulnerability in redirect URL during authentication (see [commit](https://github.com/overhangio/edx-platform/commit/06550411e34c04376fa3d757e1f068f464f816e6)).
+- [Security] Fix vulnerability in redirect URL during authentication (see [commit](https://github.com/williamsmiths/edx-platform/commit/06550411e34c04376fa3d757e1f068f464f816e6)).
 
 ## v13.1.3 (2022-02-01)
 
@@ -763,7 +763,7 @@ pen-release/palm.master --repo-dir=test-course/course`. (by @regisb)
   - Wait for the caddy deployment to be ready before running initialisation jobs.
   - Fix running Caddy container in k8s, which should always be the case even if `ENABLE_WEB_PROXY` is false.
 - [Security] On Kubernetes, convert all NodePort services to ClusterIP to guarantee network isolation from outside the cluster.
-- 💥[Improvement] Move the Open edX forum to a [dedicated plugin](https://github.com/overhangio/tutor-forum/) (#450).
+- 💥[Improvement] Move the Open edX forum to a [dedicated plugin](https://github.com/williamsmiths/tutor-forum/) (#450).
 - 💥[Improvement] Drop Python 3.5 compatibility.
 - 💥[Bugfix] No longer track the Tutor version number in resource labels (and label selectors, which breaks the update of Deployment resources), but instead do so in resource annotations.
 - 💥[Improvement] Get rid of the "tutor-openedx" package, which is no longer supported.
@@ -787,7 +787,7 @@ pen-release/palm.master --repo-dir=test-course/course`. (by @regisb)
 ## v12.1.7 (2021-11-18)
 
 - [Security] Timed exam security fix [29347](https://github.com/openedx/edx-platform/pull/29347).
-- [Feature] Add [tutor-richie](https://github.com/overhangio/tutor-richie) to the plugins that are bundled with the tutor binary.
+- [Feature] Add [tutor-richie](https://github.com/williamsmiths/tutor-richie) to the plugins that are bundled with the tutor binary.
 - [Improvement] Make `tutor plugins list` print plugins sorted by name.
 - [Improvement] Ignore Python plugins that cannot be loaded.
 - [Bugfix] When configured with `RUN_FORUM: false`, omit forum-related [Jobs](https://kubernetes.io/docs/concepts/workloads/controllers/job/) from the manifests that `tutor k8s` generates. (#525)
@@ -974,7 +974,7 @@ pen-release/palm.master --repo-dir=test-course/course`. (by @regisb)
 
 ## v11.0.5 (2020-12-30)
 
-- [Bugfix] Fix "Invalid type for parameter ContentType" error on js upload in Scorm xblock ([openedx-scorm-xblock #16](https://github.com/overhangio/openedx-scorm-xblock/issues/16)).
+- [Bugfix] Fix "Invalid type for parameter ContentType" error on js upload in Scorm xblock ([openedx-scorm-xblock #16](https://github.com/williamsmiths/openedx-scorm-xblock/issues/16)).
 
 ## v11.0.4 (2020-12-17)
 

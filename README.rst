@@ -12,7 +12,7 @@ Tutor: the Docker-based Open edX distribution designed for peace of mind
 
 .. image:: https://img.shields.io/static/v1?logo=github&label=Git&style=flat-square&color=brightgreen&message=Source%20code
   :alt: Source code
-  :target: https://github.com/overhangio/tutor
+  :target: https://github.com/williamsmiths/tutor
 
 .. image:: https://img.shields.io/static/v1?logo=discourse&label=Forums&style=flat-square&color=ff0080&message=discuss.openedx.org
   :alt: Forums
@@ -26,7 +26,7 @@ Tutor: the Docker-based Open edX distribution designed for peace of mind
   :alt: PyPI releases
   :target: https://pypi.org/project/tutor
 
-.. image:: https://img.shields.io/github/license/overhangio/tutor.svg?style=flat-square
+.. image:: https://img.shields.io/github/license/williamsmiths/tutor.svg?style=flat-square
   :alt: AGPL License
   :target: https://www.gnu.org/licenses/agpl-3.0.en.html
 
@@ -41,24 +41,24 @@ Do you need professional assistance setting up or managing your Open edX platfor
 Features
 --------
 
-* 100% `open source <https://github.com/overhangio/tutor>`__
+* 100% `open source <https://github.com/williamsmiths/tutor>`__
 * Runs entirely on Docker
 * World-famous 1-click `installation and upgrades <https://docs.tutor.edly.io/install.html>`__
-* Comes with batteries included: `theming <https://github.com/overhangio/indigo>`__, `SCORM <https://github.com/overhangio/openedx-scorm-xblock>`__, `HTTPS <https://docs.tutor.edly.io/configuration.html#ssl-tls-certificates-for-https-access>`__, `web-based administration interface <https://github.com/overhangio/tutor-webui>`__, `mobile app <https://github.com/overhangio/tutor-android>`__, `custom translations <https://docs.tutor.edly.io/configuration.html#adding-custom-translations>`__...
+* Comes with batteries included: `theming <https://github.com/williamsmiths/indigo>`__, `SCORM <https://github.com/williamsmiths/openedx-scorm-xblock>`__, `HTTPS <https://docs.tutor.edly.io/configuration.html#ssl-tls-certificates-for-https-access>`__, `web-based administration interface <https://github.com/williamsmiths/tutor-webui>`__, `mobile app <https://github.com/williamsmiths/tutor-android>`__, `custom translations <https://docs.tutor.edly.io/configuration.html#adding-custom-translations>`__...
 * Extensible architecture with `plugins <https://docs.tutor.edly.io/plugins/index.html>`__
 * Works with `Kubernetes <https://docs.tutor.edly.io/k8s.html>`__
 * No technical skill required with the `zero-click Tutor AWS image <https://docs.tutor.edly.io/install.html#zero-click-aws-installation>`__
 
 .. _readme_intro_end:
 
-.. image:: https://github.com/overhangio/tutor/raw/master/docs/img/launch.webp
+.. image:: https://github.com/williamsmiths/tutor/raw/master/docs/img/launch.webp
     :alt: Tutor local launch
     :target: https://www.terminalizer.com/view/3a8d55835686
 
 Quickstart
 ----------
 
-1. Install the `latest stable release <https://github.com/overhangio/tutor/releases>`_ of Tutor
+1. Install the `latest stable release <https://github.com/williamsmiths/tutor/releases>`_ of Tutor
 2. Run ``tutor local launch``
 3. You're done!
 
@@ -93,4 +93,4 @@ We welcome contributions to Tutor! To learn how you can contribute, please check
 License
 -------
 
-This work is licensed under the terms of the `GNU Affero General Public License (AGPL) <https://github.com/overhangio/tutor/blob/release/LICENSE.txt>`_.
+This work is licensed under the terms of the `GNU Affero General Public License (AGPL) <https://github.com/williamsmiths/tutor/blob/release/LICENSE.txt>`_.

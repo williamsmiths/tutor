@@ -37,15 +37,15 @@ Tutor: the Docker-based Open edX distribution designed for peace of mind
    :maxdepth: 2
    :caption: Project links
 
-   Source code <https://github.com/overhangio/tutor>
+   Source code <https://github.com/williamsmiths/tutor>
    Community forums <https://discuss.openedx.org/tag/tutor>
    Pypi releases <https://pypi.org/project/tutor>
-   Changelog <https://github.com/overhangio/tutor/blob/release/CHANGELOG.md>
+   Changelog <https://github.com/williamsmiths/tutor/blob/release/CHANGELOG.md>
 
 Source code
 -----------
 
-The complete source code for Tutor is available on Github: https://github.com/overhangio/tutor
+The complete source code for Tutor is available on Github: https://github.com/williamsmiths/tutor
 
 .. include:: ../README.rst
     :start-after: _readme_support_start:
@@ -58,7 +58,7 @@ The complete source code for Tutor is available on Github: https://github.com/ov
 License
 -------
 
-This work is licensed under the terms of the `GNU Affero General Public License (AGPL) <https://github.com/overhangio/tutor/blob/release/LICENSE.txt>`_.
+This work is licensed under the terms of the `GNU Affero General Public License (AGPL) <https://github.com/williamsmiths/tutor/blob/release/LICENSE.txt>`_.
 
 The AGPL license covers the Tutor code, including the Dockerfiles, but not the content of the Docker images which can be downloaded from https://hub.docker.com. Software other than Tutor provided with the docker images retain their original license.
 

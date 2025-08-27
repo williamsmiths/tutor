@@ -14,7 +14,7 @@ def upgrade_from_lilac(config: Config) -> None:
     if not plugins.is_installed("forum"):
         fmt.echo_alert(
             "The Open edX forum feature was moved to a separate plugin in Maple. To keep using this feature, "
-            "you must install and enable the tutor-forum plugin: https://github.com/overhangio/tutor-forum"
+            "you must install and enable the tutor-forum plugin: https://github.com/williamsmiths/tutor-forum"
         )
     elif not plugins.is_loaded("forum"):
         fmt.echo_info(
@@ -28,7 +28,7 @@ def upgrade_from_lilac(config: Config) -> None:
     if not plugins.is_installed("mfe"):
         fmt.echo_alert(
             "In Maple the legacy courseware is no longer supported. You need to install and enable the 'mfe' plugin "
-            "to make use of the new learning microfrontend: https://github.com/overhangio/tutor-mfe"
+            "to make use of the new learning microfrontend: https://github.com/williamsmiths/tutor-mfe"
         )
     elif not plugins.is_loaded("mfe"):
         fmt.echo_info(
@@ -59,7 +59,7 @@ def upgrade_from_redwood(context: click.Context, config: Config) -> None:
         fmt.echo_alert(
             "Your platform is going to be configured to store forum data in MongoDB. "
             "You are STRONGLY ENCOURAGED to migrate your forum data to MySQL as soon as possible. "
-            "To do so, refer to the tutor-forum plugin documentation: https://github.com/overhangio/tutor-forum/#installation"
+            "To do so, refer to the tutor-forum plugin documentation: https://github.com/williamsmiths/tutor-forum/#installation"
         )
         context.obj.job_runner(config).run_task(
             "lms",

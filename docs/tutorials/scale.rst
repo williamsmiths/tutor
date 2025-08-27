@@ -40,7 +40,7 @@ Aside from web workers, the most resource-intensive services are in the data per
 - `MySQL <https://www.mysql.com>`__: structured, consistent data storage which is the default destination of all data.
 - `MongoDB <https://www.mongodb.com>`__: structured storage of course data.
 - `Redis <https://redis.io/>`__: caching and asynchronous task management.
-- `MinIO <https://min.io>`__: S3-like object storage for user-uploaded files, which is enabled by the `tutor-minio <https://github.com/overhangio/tutor-minio>`__ plugin. It is possible to replace MinIO by direct filesystem storage (the default), but scaling will then become much more difficult down the road.
+- `MinIO <https://min.io>`__: S3-like object storage for user-uploaded files, which is enabled by the `tutor-minio <https://github.com/williamsmiths/tutor-minio>`__ plugin. It is possible to replace MinIO by direct filesystem storage (the default), but scaling will then become much more difficult down the road.
 - `Meilisearch <https://www.meilisearch.com>`__: indexing of course contents and forum topics, mostly for search. Meilisearch is never a source of truth in Open edX, and the data can thus be trashed and re-created safely.
 
 When attempting to scale a single-server deployment, we recommend starting by offloading some of these stateful data storage components, in the same order of priority. There are multiple benefits:
@@ -73,7 +73,7 @@ Horizontally scaling web services
 
 As the number of users of a web platform increases, they put increased pressure on the web workers that respond to their requests. Thus, in most cases, web worker performance is the first bottleneck that system administrators have to face when their service becomes more popular. Initially, any given Kubernetes-based Tutor platform ships with one replica for each deployment. To increase (or reduce) the number of replicas for any given service, run ``tutor k8s scale <name> <number of replicas>``. Behind the scenes, this command will trigger a ``kubectl scale --replicas=...`` command that will seamlessly increase the number of pods for that deployment.
 
-In Open edX multiple web services are exposed to the outside world. The ones that usually receive the most traffic are, in decreasing order, the LMS, the CMS, and the forum (assuming the `tutor-forum <https://github.com/overhangio/tutor-forum>`__ plugin was enabled). As an example, all three deployment replicas can be scaled by running::
+In Open edX multiple web services are exposed to the outside world. The ones that usually receive the most traffic are, in decreasing order, the LMS, the CMS, and the forum (assuming the `tutor-forum <https://github.com/williamsmiths/tutor-forum>`__ plugin was enabled). As an example, all three deployment replicas can be scaled by running::
 
     tutor k8s scale lms 8
     tutor k8s scale cms 4

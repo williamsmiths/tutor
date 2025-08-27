@@ -32,7 +32,7 @@ What features are missing from Tutor?
 
 Tutor tries very hard to support all major Open edX platform features, notably in the form of :ref:`plugins <existing_plugins>`. If you are interested in sponsoring the development of a new plugin, please `get in touch <mailto:worktogether@overhang.io>`__!
 
-It should be noted that the `Insights <https://github.com/openedx/edx-analytics-pipeline>`__ stack is currently unsupported, because of its complexity, lack of support, and extensibility. To replace it, Edly has developed `Cairn <https://github.com/overhangio/tutor-cairn>`__ the next-generation analytics solution for the Open edX platform, and the Open edX community is working on a new analytics project, in beta as of the Redwood release, called `Aspects <https://docs.openedx.org/projects/openedx-aspects/en/latest/concepts/aspects_overview.html>`_. You should check them out 😉
+It should be noted that the `Insights <https://github.com/openedx/edx-analytics-pipeline>`__ stack is currently unsupported, because of its complexity, lack of support, and extensibility. To replace it, Edly has developed `Cairn <https://github.com/williamsmiths/tutor-cairn>`__ the next-generation analytics solution for the Open edX platform, and the Open edX community is working on a new analytics project, in beta as of the Redwood release, called `Aspects <https://docs.openedx.org/projects/openedx-aspects/en/latest/concepts/aspects_overview.html>`_. You should check them out 😉
 
 Are there people already running this in production?
 ----------------------------------------------------
@@ -42,4 +42,4 @@ Yes: system administrators all around the world use Tutor to run their Open edX 
 Why should I trust your software?
 ---------------------------------
 
-You shouldn't :) Tutor is actively maintained by `Edly <https://edly.io>`__, a US-based ed-tech company facilitating over 40 million learners worldwide through its eLearning solutions. With a credible engineering team that has won clients' hearts globally led by `Régis Behmo <https://github.com/regisb/>`__, Tutor has empowered numerous edtech ventures over the years. Additionally, Tutor is a `community-led project <https://github.com/overhangio/tutor>`__ with many contributions from its :ref:`project maintainers <maintainers>`.
+You shouldn't :) Tutor is actively maintained by `Edly <https://edly.io>`__, a US-based ed-tech company facilitating over 40 million learners worldwide through its eLearning solutions. With a credible engineering team that has won clients' hearts globally led by `Régis Behmo <https://github.com/regisb/>`__, Tutor has empowered numerous edtech ventures over the years. Additionally, Tutor is a `community-led project <https://github.com/williamsmiths/tutor>`__ with many contributions from its :ref:`project maintainers <maintainers>`.

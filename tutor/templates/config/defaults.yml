@@ -12,7 +12,7 @@ CMS_OAUTH2_KEY_SSO_DEV: "cms-sso-dev"
 CONTACT_EMAIL: "contact@{{ LMS_HOST }}"
 DEV_PROJECT_NAME: "{{ TUTOR_APP }}_dev"
 DOCKER_REGISTRY: "docker.io/"
-DOCKER_IMAGE_OPENEDX: "{{ DOCKER_REGISTRY }}overhangio/openedx:{{ TUTOR_VERSION }}"
+DOCKER_IMAGE_OPENEDX: "{{ DOCKER_REGISTRY }}williamsmiths/openedx:{{ TUTOR_VERSION }}"
 DOCKER_IMAGE_OPENEDX_DEV: "openedx-dev:{{ TUTOR_VERSION }}"
 # https://hub.docker.com/_/caddy/tags
 DOCKER_IMAGE_CADDY: "docker.io/caddy:2.7.4"
@@ -22,7 +22,7 @@ DOCKER_IMAGE_MEILISEARCH: "docker.io/getmeili/meilisearch:v1.8.4"
 DOCKER_IMAGE_MONGODB: "docker.io/mongo:7.0.7"
 # https://hub.docker.com/_/mysql/tags
 DOCKER_IMAGE_MYSQL: "docker.io/mysql:8.4.0"
-DOCKER_IMAGE_PERMISSIONS: "{{ DOCKER_REGISTRY }}overhangio/openedx-permissions:{{ TUTOR_VERSION }}"
+DOCKER_IMAGE_PERMISSIONS: "{{ DOCKER_REGISTRY }}williamsmiths/openedx-permissions:{{ TUTOR_VERSION }}"
 # https://hub.docker.com/_/redis/tags
 DOCKER_IMAGE_REDIS: "docker.io/redis:7.4.5"
 # https://hub.docker.com/r/devture/exim-relay/tags

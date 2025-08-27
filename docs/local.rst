@@ -51,7 +51,7 @@ Update docker images
 
     tutor local dc pull
 
-This downloads the latest version of the Docker images from `Docker Hub <https://hub.docker.com/r/overhangio/openedx/>`_. Depending on your bandwidth, this might take a long time. Minor image updates will be incremental, and thus much faster.
+This downloads the latest version of the Docker images from `Docker Hub <https://hub.docker.com/r/williamsmiths/openedx/>`_. Depending on your bandwidth, this might take a long time. Minor image updates will be incremental, and thus much faster.
 
 Running Open edX
 ~~~~~~~~~~~~~~~~
@@ -139,7 +139,7 @@ The default Open edX theme is rather bland, so Tutor makes it easy to switch to 
 
     tutor local do settheme mytheme
 
-Out of the box, only the default "open-edx" theme is available. We also developed `Indigo, a beautiful, customizable theme <https://github.com/overhangio/indigo>`__ which is easy to install with Tutor.
+Out of the box, only the default "open-edx" theme is available. We also developed `Indigo, a beautiful, customizable theme <https://github.com/williamsmiths/indigo>`__ which is easy to install with Tutor.
 
 Changing the mysql charset and collation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

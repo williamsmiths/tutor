@@ -2,7 +2,7 @@
 Plugin indexes
 ==============
 
-Plugin indexes are a great way to have your plugins discovered by other users. Plugin indexes make it easy for other Tutor users to install and upgrade plugins from other developers. Examples include the official indexes, which can be found in the `overhangio/tpi <https://github.com/overhangio/tpi/>`__ repository.
+Plugin indexes are a great way to have your plugins discovered by other users. Plugin indexes make it easy for other Tutor users to install and upgrade plugins from other developers. Examples include the official indexes, which can be found in the `williamsmiths/tpi <https://github.com/williamsmiths/tpi/>`__ repository.
 
 Index file paths
 ================

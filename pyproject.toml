@@ -31,9 +31,9 @@ tutor = "tutor.commands.cli:main"
 [project.urls]
 Homepage = "https://docs.tutor.edly.io/"
 Documentation = "https://docs.tutor.edly.io/"
-Source = "https://github.com/overhangio/tutor"
-Issues = "https://github.com/overhangio/tutor/issues"
-Changelog = "https://github.com/overhangio/tutor/blob/master/CHANGELOG.md"
+Source = "https://github.com/williamsmiths/tutor"
+Issues = "https://github.com/williamsmiths/tutor/issues"
+Changelog = "https://github.com/williamsmiths/tutor/blob/master/CHANGELOG.md"
 Community = "https://discuss.openedx.org/tag/tutor"
 
 # hatch-specific configuration

@@ -85,10 +85,10 @@ Example::
   def command():
     ...
 
-To get started on the right foot, it is strongly recommended to create your first plugin with the `tutor plugin cookiecutter <https://github.com/overhangio/cookiecutter-tutor-plugin>`__::
+To get started on the right foot, it is strongly recommended to create your first plugin with the `tutor plugin cookiecutter <https://github.com/williamsmiths/cookiecutter-tutor-plugin>`__::
 
     pip install cookiecutter
-    cookiecutter https://github.com/overhangio/cookiecutter-tutor-plugin.git
+    cookiecutter https://github.com/williamsmiths/cookiecutter-tutor-plugin.git
     pip install -e ./tutor-myplugin
     tutor plugins list # your plugin should appear here
     tutor plugins enable myplugin # hack at it!
