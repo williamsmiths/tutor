@@ -95,6 +95,14 @@ jobs:
           mv ./dist/tutor $FILENAME
           echo "File created: $FILENAME"
           ls -la $FILENAME
-          gh release upload --clobber v$(make version) $FILENAME
+          
+          # Kiểm tra xem release có tồn tại không, nếu không thì tạo mới
+          if ! gh release view ${{ github.ref_name }} >/dev/null 2>&1; then
+            echo "Release ${{ github.ref_name }} not found, creating new release..."
+            gh release create ${{ github.ref_name }} --title "Release ${{ github.ref_name }}" --notes "Release ${{ github.ref_name }}"
+          fi
+          
+          gh release upload --clobber ${{ github.ref_name }} $FILENAME
         env:
           GH_TOKEN: ${{ github.token }}
+        if: ${{ github.ref_type == 'tag' }}
