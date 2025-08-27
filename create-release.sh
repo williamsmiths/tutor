@@ -39,21 +39,30 @@ if [ $# -eq 0 ]; then
 fi
 
 VERSION=$1
+# Remove 'v' prefix if user provided it
+VERSION=${VERSION#v}
 TAG_NAME="v$VERSION"
 
 print_info "Bắt đầu tạo release cho version: $VERSION"
 
-# Check if we're on main branch
+# Check current branch
 CURRENT_BRANCH=$(git branch --show-current)
-if [ "$CURRENT_BRANCH" != "main" ]; then
-    print_warning "Bạn đang ở branch: $CURRENT_BRANCH"
-    print_warning "Nên chuyển về main branch trước khi tạo release"
-    read -p "Tiếp tục? (y/N): " -n 1 -r
-    echo
-    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-        print_info "Hủy bỏ tạo release"
-        exit 1
+print_info "Đang ở branch: $CURRENT_BRANCH"
+
+# Check if main branch exists
+if git show-ref --verify --quiet refs/remotes/origin/main; then
+    if [ "$CURRENT_BRANCH" != "main" ]; then
+        print_warning "Branch 'main' tồn tại nhưng bạn đang ở branch: $CURRENT_BRANCH"
+        print_warning "Nên chuyển về main branch trước khi tạo release"
+        read -p "Tiếp tục? (y/N): " -n 1 -r
+        echo
+        if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+            print_info "Hủy bỏ tạo release"
+            exit 1
+        fi
     fi
+else
+    print_info "Không có branch 'main', sẽ tạo release trên branch hiện tại: $CURRENT_BRANCH"
 fi
 
 # Check if working directory is clean
@@ -70,16 +79,32 @@ if git tag -l | grep -q "^$TAG_NAME$"; then
 fi
 
 print_info "1. Cập nhật version trong tutor/__about__.py"
-# Update version in __about__.py
-sed -i "s/__version__ = \".*\"/__version__ = \"$VERSION\"/" tutor/__about__.py
 
-# Verify the change
-CURRENT_VERSION=$(make version)
-if [ "$CURRENT_VERSION" != "$VERSION" ]; then
-    print_error "Version không được cập nhật đúng! Expected: $VERSION, Got: $CURRENT_VERSION"
-    exit 1
+# Check if make is available
+if ! command -v make &> /dev/null; then
+    print_warning "Lệnh 'make' không có sẵn, sẽ sử dụng Python để đọc version"
+    # Update version in __about__.py
+    sed -i "s/__version__ = \".*\"/__version__ = \"$VERSION\"/" tutor/__about__.py
+    
+    # Verify the change using Python instead of make
+    CURRENT_VERSION=$(python -c "import sys; sys.path.append('.'); from tutor.__about__ import __version__; print(__version__)")
+    if [ "$CURRENT_VERSION" != "$VERSION" ]; then
+        print_error "Version không được cập nhật đúng! Expected: $VERSION, Got: $CURRENT_VERSION"
+        exit 1
+    fi
+    print_success "Version đã được cập nhật thành: $CURRENT_VERSION"
+else
+    # Update version in __about__.py
+    sed -i "s/__version__ = \".*\"/__version__ = \"$VERSION\"/" tutor/__about__.py
+    
+    # Verify the change
+    CURRENT_VERSION=$(make version)
+    if [ "$CURRENT_VERSION" != "$VERSION" ]; then
+        print_error "Version không được cập nhật đúng! Expected: $VERSION, Got: $CURRENT_VERSION"
+        exit 1
+    fi
+    print_success "Version đã được cập nhật thành: $CURRENT_VERSION"
 fi
-print_success "Version đã được cập nhật thành: $CURRENT_VERSION"
 
 print_info "2. Tạo changelog entry"
 # Create changelog entry
@@ -89,6 +114,7 @@ if command -v scriv &> /dev/null; then
     print_success "Changelog entry đã được tạo"
 else
     print_warning "scriv không được cài đặt, bỏ qua tạo changelog entry"
+    print_info "Bạn có thể cài đặt scriv bằng: pip install scriv"
 fi
 
 print_info "3. Commit changes"
