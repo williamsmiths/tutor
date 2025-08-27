@@ -86,7 +86,15 @@ jobs:
       - name: Upload release asset to GitHub
         run: |
           export FILENAME="tutor-$(uname -s)_$(uname -m)"
+          echo "Generated filename: $FILENAME"
+          echo "Current OS: $(uname -s)"
+          echo "Current architecture: $(uname -m)"
+          echo "Current version: $(make version)"
+          echo "Git ref name: ${{ github.ref_name }}"
+          ls -la ./dist/
           mv ./dist/tutor $FILENAME
+          echo "File created: $FILENAME"
+          ls -la $FILENAME
           gh release upload --clobber v$(make version) $FILENAME
         env:
           GH_TOKEN: ${{ github.token }}
