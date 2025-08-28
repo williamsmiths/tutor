@@ -9,8 +9,8 @@ Open edX customization
 
    plugin
    theming
-   edx-platform
-   edx-platform-settings
+   elearning-edx
+   elearning-edx-settings
    google-smtp
    main
 

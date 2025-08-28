@@ -32,7 +32,7 @@ instructions, because git commits are used to generate release notes:
 <a id='changelog-20.0.0'></a>
 ## v20.0.0 (2025-06-16)
 
-- 💥[Depreciation] Remove the unnecessary site-configuration script in favour of the [`create_or_update_site_configuration`](https://github.com/openedx/edx-platform/blob/master/openedx/core/djangoapps/site_configuration/management/commands/create_or_update_site_configuration.py) management command provided in edx-platform. (by @Danyal-Faheem)
+- 💥[Depreciation] Remove the unnecessary site-configuration script in favour of the [`create_or_update_site_configuration`](https://github.com/openedx/elearning-edx/blob/master/openedx/core/djangoapps/site_configuration/management/commands/create_or_update_site_configuration.py) management command provided in elearning-edx. (by @Danyal-Faheem)
 
 - 💥[Feature] Upgrade to Teak. (by @ahmed-arb)
 
@@ -89,7 +89,7 @@ LMS_HOST etc.
 ## v19.0.1 (2025-01-10)
 
 - [Bugfix] Add meilisearch as a dependency on lms-job to avoid meilisearch init job crashing when the platform is stopped. (by @Danyal-Faheem)
-- [Improvement] Silence "imghdr" warning in edx-platform. (by @regisb)
+- [Improvement] Silence "imghdr" warning in elearning-edx. (by @regisb)
 - [Bugfix] Properly reload a plugin module on enable/disable/enable. This is an edge case that should not have affected anyone. (by @regisb)
 
 <a id='changelog-19.0.0'></a>
@@ -149,12 +149,12 @@ LMS_HOST etc.
 - [Feature] Add a filter to define the celery workers startup command. (by @Ian2012)
 - [Improvement] When building images with `tutor images build --cache-to-registry`, use an OCI-compliant cache artifact format that should be universally compatible with all registries. This enables the use of that option when working with third-party registries such as [Harbor](https://goharbor.io/) or [ECR](https://aws.amazon.com/ecr/). Requires [BuildKit 0.12](https://github.com/moby/buildkit/releases/tag/v0.12.0) or later. (by @angonz and @fghaas)
 - [Feature] Add the `TUTOR_BRANCH_IS_MAIN` variable to the template context, which is set to True for users running Tutor Main (by @kdmccormick).
-- [Bugfix] Use `TUTOR_BRANCH_IS_MAIN` rather than the edx-platform branch name in order to determine which patches to apply. This way, when developers are testing an edx-platform branch that is not master but which may be *based on* master, they will receive master patches rather than release patches, assuming they are running Tutor Main in the first place (by @kdmccormick).
+- [Bugfix] Use `TUTOR_BRANCH_IS_MAIN` rather than the elearning-edx branch name in order to determine which patches to apply. This way, when developers are testing an elearning-edx branch that is not master but which may be *based on* master, they will receive master patches rather than release patches, assuming they are running Tutor Main in the first place (by @kdmccormick).
 
 <a id='changelog-18.1.4'></a>
 ## v18.1.4 (2024-10-24)
 
-- [Improvement] Set `EDXAPP_TEST_MONGO_HOST` env var in the openedx-dev image so that it no longer needs to be set by hand when running edx-platform unit tests (by @kdmccormick).
+- [Improvement] Set `EDXAPP_TEST_MONGO_HOST` env var in the openedx-dev image so that it no longer needs to be set by hand when running elearning-edx unit tests (by @kdmccormick).
 
 - [Feature] Added `-c` or `--clean` option to tutor config save: For plugin developers and advanced users, this option cleans the `env/` folder before saving, ensuring a fresh environment for testing and development. (by @CodeWithEmad)
 
@@ -194,9 +194,9 @@ LMS_HOST etc.
 ## v18.0.0 (2024-06-19)
 
 - 💥[Feature] Upgrade to Redwood (by @dawoudsheraz)
-- [Bugfix] Wrap Django5 warning imports in try-except block to avoid failures in django3 that's still in use in edx-platform's master branch (by @mariajgrimaldi).
+- [Bugfix] Wrap Django5 warning imports in try-except block to avoid failures in django3 that's still in use in elearning-edx's master branch (by @mariajgrimaldi).
 - 💥[Feature] Pull translations via `atlas` during Docker build. This breaks the `openedx-i18n` custom locale Tutor feature in favor of [OEP-58](https://docs.openedx.org/en/latest/developers/concepts/oep58.html) in favor of <https://github.com/openedx/openedx-translations>. (by @omarithawi)
-- 💥[Feature] The `openedx-assets` command is replaced with `npm run` subcommands. This will slightly reduce the build time for edx-platform assets and comprehensive themes. It will also open up the door for more significant build time reductions in the future. Here is a migration guide, where each command is to be run in the `lms` or `cms` container:
+- 💥[Feature] The `openedx-assets` command is replaced with `npm run` subcommands. This will slightly reduce the build time for elearning-edx assets and comprehensive themes. It will also open up the door for more significant build time reductions in the future. Here is a migration guide, where each command is to be run in the `lms` or `cms` container:
 
   **Before**                               | **After**
   -----------------------------------------|-------------------------------------------------------------------------------------
@@ -211,9 +211,9 @@ LMS_HOST etc.
   `openedx-assets collect ARGS`            | `./manage.py lms collectstatic --noinput ARGS && ./manage.py cms collectstatic ARGS`
   `openedx-assets watch-themes ARGS`       | `npm run watch-themes -- ARGS`
 
-For more details, see the [deprecation notice for paver](https://github.com/openedx/edx-platform/issues/34467)
-and the [static assets reference](https://github.com/openedx/edx-platform/tree/open-release/redwood.master/docs/references/static-assets.rst)
-in edx-platform.
+For more details, see the [deprecation notice for paver](https://github.com/openedx/elearning-edx/issues/34467)
+and the [static assets reference](https://github.com/openedx/elearning-edx/tree/open-release/redwood.master/docs/references/static-assets.rst)
+in elearning-edx.
 
 - 💥[Feature] Update MongoDB to v7.0.7 (by @dawoudsheraz) MongoDB is upgraded from version 4.4 to 7.0. Since there have been major releases since 4.4, the upgrade will need to go through them before running Mongo 7. MongoDB would need to follow 4.4 --> 5.0 --> 6.0 --> 7.0 upgrade path to work correctly. The container will keep on restarting with featureCompatibility error if the upgrade path is not followed. To upgrade mongo, run the following command based in the appropriate environment:
 
@@ -221,13 +221,13 @@ in edx-platform.
 
 For k8s only, the above command will not perform the upgrade automatically. Instead, the command will output a series of commands that would need to be run manually to carry out the upgrade.
 
-- [Improvement] Upgrade Nodejs from 16.14.0 to 18.20.1 in edx-platform. (by @regisb)
-- [Improvement] Auto-detect bind mounts of openedx-learning for edx-platform (by @bradenmacdonald)
+- [Improvement] Upgrade Nodejs from 16.14.0 to 18.20.1 in elearning-edx. (by @regisb)
+- [Improvement] Auto-detect bind mounts of openedx-learning for elearning-edx (by @bradenmacdonald)
 - [Feature] Upgrade Open edX image to use Python 3.11 (by @dawoudsheraz)
 - [Bugfix] Remove CORS_ALLOW_HEADERS setting from the LMS/Studio config template. This setting, which holds site-agnostic application logic, is now consistently set to a reasonable value upstream by LMS and CMS config. Using the upstream values fixes a bug where course import in Studio using the new Course Authoring MFE was broken in Tutor deployments because it required additional headers to be allowed (content-range and content-disposition) (by @ormsbee)
 - [Improvement] Made Docker cache hits more frequent during the openedx image build via BuildKit's `COPY --link` feature (by @kdmccormick).
 - 💥[Improvement] Upgrade MySQL to 8.4.0. The upgrade should be automatic for most users. However, if you are running a third-party MySQL (i.e., RUN_MYSQL=false), you are expected to upgrade manually. Please refer to the third-party provider's documentation for detailed upgrade instructions. Ensuring that your MySQL version is up-to-date is crucial for maintaining compatibility and security. (by @rohansaeed)
-- 💥[Improvement] Ensure that the edx-platform repository git checkout is cached by Docker during image build. This means that the cache will automatically be cleared any time there is an upstream change. Thus, it is no longer necessary to run `tutor images build --no-cache` just to fetch the latest edx-platform changes. For this to work, any GitHub repository referenced by `EDX_PLATFORM_REPOSITORY` needs to end with ".git". Make sure that this is the case if you have modified the value of this setting in the past. (by @regisb)
+- 💥[Improvement] Ensure that the elearning-edx repository git checkout is cached by Docker during image build. This means that the cache will automatically be cleared any time there is an upstream change. Thus, it is no longer necessary to run `tutor images build --no-cache` just to fetch the latest elearning-edx changes. For this to work, any GitHub repository referenced by `EDX_PLATFORM_REPOSITORY` needs to end with ".git". Make sure that this is the case if you have modified the value of this setting in the past. (by @regisb)
 
 <a id='changelog-17.0.6'></a>
 ## v17.0.6 (2024-06-13)
@@ -296,14 +296,14 @@ For k8s only, the above command will not perform the upgrade automatically. Inst
 - 💥[Feature] Enable the Indigo theme by default, if no other theme is set. (by @regisb)
 - 💥[Deprecation] Tutor no longer supports the legacy Docker builder, which was previously available by setting `DOCKER_BUILDKIT=0` in the host environment. Going forward, Tutor will always use BuildKit (a.k.a. `docker buildx` in Docker v19-v22, or just `docker build` in Docker v23). This transition will improve build performance and should be seamless for Tutor users who are running a supported Docker version (by @kdmccormick).
 - 💥[Deprecation] The template variable `is_buildkit_enabled`, which now always returns True, is deprecated. Plugin authors should assume BuildKit is enabled and remove the variable from their templates (by @kdmccormick).
-- 💥[Deprecation] Adding Python packages to edx-platform via `private.txt` is no longer supported. Instead, users should bind-mount their requirement directories with `tutor mounts add ...`. (by @regisb)
+- 💥[Deprecation] Adding Python packages to elearning-edx via `private.txt` is no longer supported. Instead, users should bind-mount their requirement directories with `tutor mounts add ...`. (by @regisb)
 - [Bugfix] Updated how the Tutor setting `JWT_RSA_PRIVATE_KEY` is rendered into the LMS Django setting `JWT_AUTH['JWT_PRIVATE_SIGNING_JWK']` as required by a recent breaking upstream change. The new representation of the `JWT_PRIVATE_SIGNING_JWK` simply adds the `dq`, `dp`, and `qi` parameters. Without this fix, LMS would encounter an `InvalidKeyError` on all logins. (by @kdmccormick)
 - [Improvement] You don't have to run `tutor config save` every time you enable or disable a plugin anymore. (by @CodeWithEmad)
 
 <a id='changelog-16.1.8'></a>
 ## v16.1.8 (2023-12-10)
 
-- [Feature] Make it easy to work on 3rd-party edx-platform Python packages with `tutor mounts add /path/to/my/package`. (by @regisb)
+- [Feature] Make it easy to work on 3rd-party elearning-edx Python packages with `tutor mounts add /path/to/my/package`. (by @regisb)
 - [Improvement] When configured with `RUN_MYSQL: true`, run `mysqld` with binlog expiry set to 3 days (rather than the default of 30).
 - [Improvement] Fix `ulimits` error for elasticsearch in Docker rootless mode (by @OmarIthawi)
 - [Improvement] Do not hardcode `OPENEDX_COMMON_VERSION = master` in the nightly branch. This removes git conflicts whenever we bump the common version in the master branch. (by @regisb)
@@ -380,7 +380,7 @@ For k8s only, the above command will not perform the upgrade automatically. Inst
 ## v16.0.3 (2023-07-28)
 
 - [Bugfix] Improve `tutor ... do settheme default` so that it reverts to the default theme rather than trying to switch to a nonexistent theme named "default". This will clear up some error noise from LMS/CMS logs. (by @kdmccormick)
-- [Security] Fix content libraries creation by unprivileged users in studio (see [security advisory](https://github.com/openedx/edx-platform/security/advisories/GHSA-3q74-3rfh-g37j)). (by @regisb)
+- [Security] Fix content libraries creation by unprivileged users in studio (see [security advisory](https://github.com/openedx/elearning-edx/security/advisories/GHSA-3q74-3rfh-g37j)). (by @regisb)
 
 <a id='changelog-16.0.2'></a>
 ## v16.0.2 (2023-06-22)
@@ -439,8 +439,8 @@ pen-release/palm.master --repo-dir=test-course/course`. (by @regisb)
 ## v15.3.5 (2023-04-28)
 
 - [Feature] Make it possible to import the demo course from a different git repository or version. (by @regisb)
-- [Feature] Add a convenient `do print-edx-platform-setting` command to print the value of an edx-platform setting. (by @regisb)
-- [Improvement] Improve edx-platform logging by silencing a couple deprecation warnings. (by @regisb)
+- [Feature] Add a convenient `do print-elearning-edx-setting` command to print the value of an elearning-edx setting. (by @regisb)
+- [Improvement] Improve elearning-edx logging by silencing a couple deprecation warnings. (by @regisb)
 - [Feature] Add a convenient `do sqlshell` command to enter a SQL shell as root. (by @regisb)
 
 <a id='changelog-15.3.4'></a>
@@ -452,9 +452,9 @@ pen-release/palm.master --repo-dir=test-course/course`. (by @regisb)
 ## v15.3.3 (2023-03-22)
 
 - [Improvement] Make it possible to extend or override the configuration of the uWSGI server. (by @MoisesGSalas)
-- [Improvement] Running `tutor dev launch --mount=edx-platform` now performs all necessary setup for a local edx-platform development. This includes running setup.py, installing node modules, and building assets; previously, those steps had to be run explicitly after bind-mounting a local copy of edx-platform (by @kdmccormick).
+- [Improvement] Running `tutor dev launch --mount=elearning-edx` now performs all necessary setup for a local elearning-edx development. This includes running setup.py, installing node modules, and building assets; previously, those steps had to be run explicitly after bind-mounting a local copy of elearning-edx (by @kdmccormick).
 - [Bugfix] Running jobs in development mode with `tutor dev do ...` will now correctly use the development image. Previously, it used the production image, just like `tutor local do ...`. (by @kdmccormick)
-- [Improvement] Faster build with `npm clean-install` instead of `npm install` in the openedx Docker image. This may change the version of npm packages installed next to edx-platform. (by @regisb)
+- [Improvement] Faster build with `npm clean-install` instead of `npm install` in the openedx Docker image. This may change the version of npm packages installed next to elearning-edx. (by @regisb)
 - [Feature] Introduce the `DOCKER_BUILD_COMMAND` filter which makes it possible to customize the `docker build` command. (by @regisb)
 - [Improvement] During openedx image build, copy `dockerize` utility from Docker registry for better efficiency. (by @regisb)
 - [Improvement] Better highlight enabled plugins in `tutor plugins list`. (by @regisb)
@@ -498,7 +498,7 @@ pen-release/palm.master --repo-dir=test-course/course`. (by @regisb)
 
 - 💥[Bugfix] Fix "example.com" links in registration emails. This is a breaking change for platforms that have modified the "id" field of the LMS site object in the database. These platforms should set `SITE_ID=1` in the common settings via a plugin. (by @regisb)
 - [Bugfix] Running `tutor k8s upgrade --from=maple` won't apply and won't wait for the MySQL deployment to be ready if `RUN_MYSQL: false` (When you host your MySQL somewhere else like RDS) (by @CodeWithEmad)
-- [Bugfix] Fix HTML component editing in studio by cherry-picking [upstream fix](https://github.com/openedx/edx-platform/pull/31500). (by @regisb)
+- [Bugfix] Fix HTML component editing in studio by cherry-picking [upstream fix](https://github.com/openedx/elearning-edx/pull/31500). (by @regisb)
 - [Improvement] Changes annotations from `typing` to use built-in generic types from `__future__.annotations` (by @Carlos-Muniz)
 - [Improvement] Resolve `CORS_ORIGIN_WHITELIST` warnings that pollute the LMS and CMS logs. As far as we know they were not causing any issue, apart from being a nuisance. (by @regisb)
 
@@ -525,10 +525,10 @@ pen-release/palm.master --repo-dir=test-course/course`. (by @regisb)
     - Plugin developers are encouraged to replace calls to the `COMMANDS_INIT` and `COMMANDS_PRE_INIT` filters by `CLI_DO_INIT_TASKS`.
 - [Feature] Implement hook filter priorities, which work like action priorities. (by @regisb)
 - 💥[Improvement] Remove the `local/dev bindmount` commands, which have been marked as deprecated for some time. The `--mount` option should be used instead.
-- 💥[Bugfix] Fix local installation requirements. Plugins that implemented the "openedx-dockerfile-post-python-requirements" patch and that needed access to the edx-platform repo will no longer work. Instead, these plugins should implement the "openedx-dockerfile-pre-assets" patch. This scenario should be very rare, though. (by @regisb)
+- 💥[Bugfix] Fix local installation requirements. Plugins that implemented the "openedx-dockerfile-post-python-requirements" patch and that needed access to the elearning-edx repo will no longer work. Instead, these plugins should implement the "openedx-dockerfile-pre-assets" patch. This scenario should be very rare, though. (by @regisb)
 - 💥[Improvement] Rename the implementation of tutor <mode> quickstart to tutor <mode> launch. (by @Carlos-Muniz)
 - 💥[Improvement] Remove the implementation of tutor dev runserver. (by @Carlos-Muniz)
-- [Bugfix] Fix MongoDB replica set connection error resulting from edx-platform's pymongo (3.10.1 -> 3.12.3) upgrade ([edx-platform#30569](https://github.com/openedx/edx-platform/pull/30569)). (by @ormsbee)
+- [Bugfix] Fix MongoDB replica set connection error resulting from elearning-edx's pymongo (3.10.1 -> 3.12.3) upgrade ([elearning-edx#30569](https://github.com/openedx/elearning-edx/pull/30569)). (by @ormsbee)
 - [Bugfix] Update ``celery`` invocations for lms-worker and cms-worker to be compatible with Celery 5 CLI.
 - [Improvement] Point CMS at its config file using ``CMS_CFG`` environment variable instead of deprecated ``STUDIO_CFG``.
 
@@ -564,7 +564,7 @@ pen-release/palm.master --repo-dir=test-course/course`. (by @regisb)
 
 ## v14.1.2 (2022-11-02)
 
-- [Security] Fix edx-platform XSS vulnerability on "next" parameter. (by @regisb)
+- [Security] Fix elearning-edx XSS vulnerability on "next" parameter. (by @regisb)
 
 ## v14.1.1 (2022-10-25)
 
@@ -576,11 +576,11 @@ pen-release/palm.master --repo-dir=test-course/course`. (by @regisb)
 
 - [Improvement] Upgrade Scorm XBlock to v14.0.0. (by @regisb)
 - 💥[Improvement] The Richie plugin was transferred to the Openfun organization; thus, it is no longer officially supported and it is removed from the default set of plugins that ships with `pip install tutor[full]` or the Tutor pre-compiled binary. Users are encouraged to uninstall the `tutor-richie` Python package and install the `tutor-contrib-richie` package instead.
-- [Feature] Upgrade edx-platform i18n strings to nutmeg.2. (by @regisb)
+- [Feature] Upgrade elearning-edx i18n strings to nutmeg.2. (by @regisb)
 
 ## v14.0.5 (2022-08-29)
 
-- [Bugfix] Fix MongoDB replica set connection error resulting from edx-platform's pymongo (3.10.1 -> 3.12.3) upgrade ([edx-platform#30569](https://github.com/openedx/edx-platform/pull/30569)). (by @ormsbee)
+- [Bugfix] Fix MongoDB replica set connection error resulting from elearning-edx's pymongo (3.10.1 -> 3.12.3) upgrade ([elearning-edx#30569](https://github.com/openedx/elearning-edx/pull/30569)). (by @ormsbee)
 - [Feature] Upgrade all applications to open-release/nutmeg.2. (by @BbrSofiane)
 
 ## v14.0.4 (2022-07-29)
@@ -595,7 +595,7 @@ pen-release/palm.master --repo-dir=test-course/course`. (by @regisb)
 ## v14.0.3 (2022-07-09)
 
 - [Bugfix] Build openedx-dev Docker image even when the host user is root, for instance on Windows. (by @regisb)
-- [Bugfix] Patch nutmeg.1 release with [LTI 1.3 fix](https://github.com/openedx/edx-platform/pull/30716). (by @ormsbee)
+- [Bugfix] Patch nutmeg.1 release with [LTI 1.3 fix](https://github.com/openedx/elearning-edx/pull/30716). (by @ormsbee)
 - [Improvement] Make it possible to override k8s resources in plugins using `k8s-override` patch. (by @foadlind)
 
 ## v14.0.2 (2022-06-27)
@@ -648,7 +648,7 @@ pen-release/palm.master --repo-dir=test-course/course`. (by @regisb)
 
 ## v13.2.1 (2022-05-06)
 
-- [Bugfix] Fix broken file upload in studio because of unpinned studio-frontend requirement (see [discussion](https://discuss.overhang.io/t/missing-js-css-files-missing-from-openedx-docker-image-in-studio/2629) and [pull request](https://github.com/openedx/edx-platform/pull/30309)) (by @regisb. Thanks @uetuluk!).
+- [Bugfix] Fix broken file upload in studio because of unpinned studio-frontend requirement (see [discussion](https://discuss.overhang.io/t/missing-js-css-files-missing-from-openedx-docker-image-in-studio/2629) and [pull request](https://github.com/openedx/elearning-edx/pull/30309)) (by @regisb. Thanks @uetuluk!).
 - [Bugfix] "The Compose file is invalid" error on mounting dev-only folders. (by @regisb)
 - [Bugfix] CMS settings in development. (by @regisb)
 
@@ -659,7 +659,7 @@ pen-release/palm.master --repo-dir=test-course/course`. (by @regisb)
 - [Bugfix] Fix a race condition that could prevent a newly provisioned LMS container from starting due to a `FileExistsError` when creating data folders.
 - [Deprecation] Mark `tutor dev runserver` as deprecated in favor of `tutor dev start`. Since `start` now supports bind-mounting and breakpoint debugging, `runserver` is redundant and will be removed in a future release. (by @kdmccormick)
 - [Improvement] Allow breakpoint debugging when attached to a service via `tutor dev start SERVICE`. (by @kdmccormick)
-- [Security] Apply rate limiting security fix (see [commit](https://github.com/williamsmiths/edx-platform/commit/b5723e416e628cac4fa84392ca13e1b72817674f)). (by @regisb)
+- [Security] Apply rate limiting security fix (see [commit](https://github.com/williamsmiths/elearning-edx/commit/b5723e416e628cac4fa84392ca13e1b72817674f)). (by @regisb)
 - [Feature] Introduce the ``-m/--mount`` option in ``local`` and ``dev`` commands to auto-magically bind-mount folders from the host. (by @regisb)
 - [Feature] Add `tutor dev quickstart` command, which is similar to `tutor local quickstart`, except that it uses dev containers instead of local production ones and includes some other small differences for the convience of Open edX developers. This should remove some friction from the Open edX development setup process, which previously required that users provision using local producation containers (`tutor local quickstart`) but then stop them and switch to dev containers (`tutor local stop && tutor dev start -d`). (by @kdmccormick)
 - 💥[Improvement] Make it possible to run `tutor k8s exec <command with multiple arguments>` (#636). As a consequence, it is no longer possible to run quoted commands: `tutor k8s exec "<some command>"`. Instead, you should remove the quotes: `tutor k8s exec <some command>`. (by @regisb)
@@ -679,7 +679,7 @@ pen-release/palm.master --repo-dir=test-course/course`. (by @regisb)
 
 ## v13.1.9 (2022-04-06)
 
-- [Security] Fix open redirect vulnerability in inactive user flow (see [commit](https://github.com/rgraber/edx-platform/commit/fbbcfe71832e700f16aad3636b0ccb35585d1c95))
+- [Security] Fix open redirect vulnerability in inactive user flow (see [commit](https://github.com/rgraber/elearning-edx/commit/fbbcfe71832e700f16aad3636b0ccb35585d1c95))
 
 ## v13.1.8 (2022-03-18)
 
@@ -704,11 +704,11 @@ pen-release/palm.master --repo-dir=test-course/course`. (by @regisb)
 
 ## v13.1.4 (2022-02-08)
 
-- [Security] Fix vulnerability in redirect URL during authentication (see [commit](https://github.com/williamsmiths/edx-platform/commit/06550411e34c04376fa3d757e1f068f464f816e6)).
+- [Security] Fix vulnerability in redirect URL during authentication (see [commit](https://github.com/williamsmiths/elearning-edx/commit/06550411e34c04376fa3d757e1f068f464f816e6)).
 
 ## v13.1.3 (2022-02-01)
 
-- [Security] Fix vulnerability in call to invalid enrollment API (see [commit](https://github.com/openedx/edx-platform/commit/a140c674799c527e961e37c5e46cb7dc1ffef5ac)).
+- [Security] Fix vulnerability in call to invalid enrollment API (see [commit](https://github.com/openedx/elearning-edx/commit/a140c674799c527e961e37c5e46cb7dc1ffef5ac)).
 - [Bugfix] Fix "Internal Server Error / AttributeError / object has no attribute 'get_metadata'" in learning MFE.
 - [Improvement] Replace all links to github.com/edx by github.com/openedx, following the migration of all repositories.
 - [Bugfix] Fix `k8s start caddy` command.
@@ -735,7 +735,7 @@ pen-release/palm.master --repo-dir=test-course/course`. (by @regisb)
 
 ## v13.0.3 (2022-01-04)
 
-- [Security] Upgrade Django to 3.2.11 in edx-platform.
+- [Security] Upgrade Django to 3.2.11 in elearning-edx.
 - [Security] Prevent non-staff users from searching usernames by email by abusing the logout URL.
 
 ## v13.0.2 (2021-12-22)
@@ -778,7 +778,7 @@ pen-release/palm.master --repo-dir=test-course/course`. (by @regisb)
 
 ## v12.2.0 (2021-12-08)
 
-- [Bugfix] Fix incorrect "from" address in course bulk emails (see [pull request](https://github.com/openedx/edx-platform/pull/29001)).
+- [Bugfix] Fix incorrect "from" address in course bulk emails (see [pull request](https://github.com/openedx/elearning-edx/pull/29001)).
 - 💥[Improvement] Fail on incorrect image name argument in `images build/pull/push/printtag` commands.
 - [Bugfix] Remove trailing slashes in docker-compose files for [compatibility with docker-compose v2 in WSL](https://github.com/docker/compose/issues/8558).
 - [Improvement] `settheme` now works with the preview domain.
@@ -786,7 +786,7 @@ pen-release/palm.master --repo-dir=test-course/course`. (by @regisb)
 
 ## v12.1.7 (2021-11-18)
 
-- [Security] Timed exam security fix [29347](https://github.com/openedx/edx-platform/pull/29347).
+- [Security] Timed exam security fix [29347](https://github.com/openedx/elearning-edx/pull/29347).
 - [Feature] Add [tutor-richie](https://github.com/williamsmiths/tutor-richie) to the plugins that are bundled with the tutor binary.
 - [Improvement] Make `tutor plugins list` print plugins sorted by name.
 - [Improvement] Ignore Python plugins that cannot be loaded.
@@ -824,7 +824,7 @@ pen-release/palm.master --repo-dir=test-course/course`. (by @regisb)
 
 ## v12.1.0 (2021-09-17)
 
-- [Improvement] Make it easier to run edx-platform unit tests.
+- [Improvement] Make it easier to run elearning-edx unit tests.
 - [Bugfix] Fix segmentation fault during `tutor config save` on Mac OS M1 (#473). Thanks @ghassanmas!
 - [Bugfix] Fix a bug that prevented connecting to external MongoDB instances.
 - [Improvement] Make sure that the logo included in email notifications (including discussion responses) is the same as the site logo.
@@ -835,7 +835,7 @@ pen-release/palm.master --repo-dir=test-course/course`. (by @regisb)
 
 ## v12.0.4 (2021-08-12)
 
-- [Security] Apply security patch [28442](https://github.com/openedx/edx-platform/pull/28442).
+- [Security] Apply security patch [28442](https://github.com/openedx/elearning-edx/pull/28442).
 
 ## v12.0.3 (2021-08-10)
 
@@ -882,7 +882,7 @@ pen-release/palm.master --repo-dir=test-course/course`. (by @regisb)
 ## v11.2.10 (2021-05-17)
 
 - [Security] Apply Django security patches by upgrading from 2.2.20 to 2.2.23.
-- [Bugfix] Fix video unit completion (see [pull request](https://github.com/openedx/edx-platform/pull/27230)).
+- [Bugfix] Fix video unit completion (see [pull request](https://github.com/openedx/elearning-edx/pull/27230)).
 
 ## v11.2.9 (2021-05-12)
 
@@ -896,9 +896,9 @@ pen-release/palm.master --repo-dir=test-course/course`. (by @regisb)
 
 ## v11.2.7 (2021-04-23)
 
-- [Security] Apply security patch [27394](https://github.com/openedx/edx-platform/pull/27394).
+- [Security] Apply security patch [27394](https://github.com/openedx/elearning-edx/pull/27394).
 - [Feature] Add patches to extend python requirements installation process in openedx and openedx-dev Dockerfiles.
-- [Improvement] Apply edx-platform patches during Docker image build using tutor patch 'openedx-dockerfile-git-patches-default'.
+- [Improvement] Apply elearning-edx patches during Docker image build using tutor patch 'openedx-dockerfile-git-patches-default'.
 
 ## v11.2.6 (2021-04-09)
 
@@ -925,7 +925,7 @@ pen-release/palm.master --repo-dir=test-course/course`. (by @regisb)
 
 ## v11.2.2 (2021-02-17)
 
-- [Security] Apply security patch [26592](https://github.com/openedx/edx-platform/pull/26592).
+- [Security] Apply security patch [26592](https://github.com/openedx/elearning-edx/pull/26592).
 
 ## v11.2.1 (2021-02-16)
 
@@ -937,16 +937,16 @@ pen-release/palm.master --repo-dir=test-course/course`. (by @regisb)
 
 ## v11.1.5 (2021-02-09)
 
-- [Security] Apply security patch [26432](https://github.com/openedx/edx-platform/pull/26432).
+- [Security] Apply security patch [26432](https://github.com/openedx/elearning-edx/pull/26432).
 - [Bugfix] Print warnings to stderr.
 
 ## v11.1.4 (2021-02-04)
 
-- [Security] Apply security patch [26358](https://github.com/openedx/edx-platform/pull/26358).
+- [Security] Apply security patch [26358](https://github.com/openedx/elearning-edx/pull/26358).
 
 ## v11.1.3 (2021-01-31)
 
-- [Security] Apply security patch [26253](https://github.com/openedx/edx-platform/pull/26253).
+- [Security] Apply security patch [26253](https://github.com/openedx/elearning-edx/pull/26253).
 
 ## v11.1.2 (2021-01-29)
 
@@ -955,8 +955,8 @@ pen-release/palm.master --repo-dir=test-course/course`. (by @regisb)
 ## v11.1.1 (2021-01-20)
 
 - [Feature] Add a `tutor images build --target=...` argument for [multi-stage Docker builds](https://docs.docker.com/develop/develop-images/multistage-build/).
-- [Feature] Create a test version of the openedx-dev Docker image for running edx-platform unit tests.
-- [Security] Apply security patch [26112](https://github.com/openedx/edx-platform/pull/26112).
+- [Feature] Create a test version of the openedx-dev Docker image for running elearning-edx unit tests.
+- [Security] Apply security patch [26112](https://github.com/openedx/elearning-edx/pull/26112).
 - [Bugfix] Fix `local exec` command which crashed with a `AttributeError`.
 
 ## v11.1.0 (2021-01-13)
@@ -966,11 +966,11 @@ pen-release/palm.master --repo-dir=test-course/course`. (by @regisb)
 
 ## v11.0.7 (2021-01-11)
 
-- [Security] Apply security patch [26029](https://github.com/openedx/edx-platform/pull/26029).
+- [Security] Apply security patch [26029](https://github.com/openedx/elearning-edx/pull/26029).
 
 ## v11.0.6 (2021-01-05)
 
-- [Security] Apply security patch [25974](https://github.com/openedx/edx-platform/pull/25974).
+- [Security] Apply security patch [25974](https://github.com/openedx/elearning-edx/pull/25974).
 
 ## v11.0.5 (2020-12-30)
 
@@ -986,11 +986,11 @@ pen-release/palm.master --repo-dir=test-course/course`. (by @regisb)
 
 ## v11.0.2 (2020-12-12)
 
-- [Bugfix] Fix missing celery tasks from edx-platform (see [upstream PR](https://github.com/openedx/edx-platform/pull/25840)).
+- [Bugfix] Fix missing celery tasks from elearning-edx (see [upstream PR](https://github.com/openedx/elearning-edx/pull/25840)).
 
 ## v11.0.1 (2020-12-10)
 
-- [Security] Apply security patch [25834](https://github.com/openedx/edx-platform/pull/25834).
+- [Security] Apply security patch [25834](https://github.com/openedx/elearning-edx/pull/25834).
 - [Bugfix] Fix Android apk directory mount path.
 
 ## v11.0.0 (2020-12-09)
@@ -1020,7 +1020,7 @@ pen-release/palm.master --repo-dir=test-course/course`. (by @regisb)
 
 ## v10.5.3 (2020-12-09)
 
-- [Security] Apply upstream edx-platform [security patch](https://github.com/openedx/edx-platform/pull/25782).
+- [Security] Apply upstream elearning-edx [security patch](https://github.com/openedx/elearning-edx/pull/25782).
 
 ## v10.5.2 (2020-12-07)
 
@@ -1101,7 +1101,7 @@ pen-release/palm.master --repo-dir=test-course/course`. (by @regisb)
 
 - [Bugfix] Fix incorrect loading of some resources from localhost:18000 in development.
 - [Bugfix] Fix Samesite=None Secure=False cookie error for users accessing the LMS with the latest release of Google Chrome.
-- [Security] Apply javascript security patch ([pull request](https://github.com/openedx/edx-platform/pull/24762)).
+- [Security] Apply javascript security patch ([pull request](https://github.com/openedx/elearning-edx/pull/24762)).
 - [Bugfix] Fix "FileError" on Scorm package upload in Scorm XBlock.
 - 💥[Improvement] Serve openedx static assets with [whitenoise](http://whitenoise.evans.io/en/stable/) instead of Nginx. This removes the `k8s-deployments-nginx-init-containers` patch. Plugins are encouraged to implement static asset serving with Whitenoise as well.
 - [Bugfix] Fix dependency on MySQL service when MySQL is not activated.
@@ -1110,7 +1110,7 @@ pen-release/palm.master --repo-dir=test-course/course`. (by @regisb)
 
 ## v10.1.0 (2020-07-23)
 
-- [Security] Apply edx-platform upstream xss security fixes ([pull request](https://github.com/openedx/edx-platform/pull/24568)).
+- [Security] Apply elearning-edx upstream xss security fixes ([pull request](https://github.com/openedx/elearning-edx/pull/24568)).
 - 💥[Feature] Make it possible to override the docker registry for just a few services by setting `DOCKER_IMAGE_SERVICENAME` values.
 
 ## v10.0.11 (2020-07-16)
@@ -1144,7 +1144,7 @@ pen-release/palm.master --repo-dir=test-course/course`. (by @regisb)
 
 ## v10.0.5 (2020-06-21)
 
-- [Security] Apply edx-platform upstream xss security fixes ([pull request](https://github.com/openedx/edx-platform/pull/24258)).
+- [Security] Apply elearning-edx upstream xss security fixes ([pull request](https://github.com/openedx/elearning-edx/pull/24258)).
 
 ## v10.0.4 (2020-06-19)
 
@@ -1188,7 +1188,7 @@ pen-release/palm.master --repo-dir=test-course/course`. (by @regisb)
 
 ## v3.12.3 (2020-05-05)
 
-- [Security] Apply most recent edx-platform [security patches](https://discuss.openedx.org/t/security-patch-for-edit-chapter-xss-lint-issues/2030).
+- [Security] Apply most recent elearning-edx [security patches](https://discuss.openedx.org/t/security-patch-for-edit-chapter-xss-lint-issues/2030).
 
 ## v3.12.2 (2020-04-29)
 
@@ -1250,7 +1250,7 @@ pen-release/palm.master --repo-dir=test-course/course`. (by @regisb)
 
 ## v3.11.5 (2020-02-27)
 
-- [Improvement] Switch edx-platform from open-release/ironwood.2 tag to the open-release/ironwood.master branch.
+- [Improvement] Switch elearning-edx from open-release/ironwood.2 tag to the open-release/ironwood.master branch.
 - [Security] Upgrade django to 1.11.28.
 - [Improvement] Make it possible to configure the Elasticsearch heap size.
 - [Bugfix] Fix broken Elasticsearch environment variables.
@@ -1559,7 +1559,7 @@ pen-release/palm.master --repo-dir=test-course/course`. (by @regisb)
 - 2018-11-28 [Improvement] Get rid of datadog.
 - 2018-11-28 [Improvement] Upgrade docker images to ubuntu 18.04 for android, forum, notes, xqueue.
 - 2018-11-28 [Feature] Make it possible to define default platform language interactively.
-- 2018-11-26 [Improvement] Make it easier to run a forked version of edx-platform.
+- 2018-11-26 [Improvement] Make it easier to run a forked version of elearning-edx.
 - 2018-11-25 [Feature] Use local filesystem for open assessment file upload.
 - 2018-11-23 [Improvement] Faster container bootstrapping without "chmod", as suggested by @silviot.
 - 2018-11-20 [Bugfix] Fix cross-platform theme assets generation.

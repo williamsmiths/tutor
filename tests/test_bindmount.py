@@ -8,42 +8,42 @@ from tutor import bindmount
 class BindmountTests(unittest.TestCase):
     def test_parse_explicit(self) -> None:
         self.assertEqual(
-            [("lms", "/path/to/edx-platform", "/openedx/edx-platform")],
+            [("lms", "/path/to/elearning-edx", "/openedx/elearning-edx")],
             bindmount.parse_explicit_mount(
-                "lms:/path/to/edx-platform:/openedx/edx-platform"
+                "lms:/path/to/elearning-edx:/openedx/elearning-edx"
             ),
         )
         self.assertEqual(
             [
-                ("lms", "/path/to/edx-platform", "/openedx/edx-platform"),
-                ("cms", "/path/to/edx-platform", "/openedx/edx-platform"),
+                ("lms", "/path/to/elearning-edx", "/openedx/elearning-edx"),
+                ("cms", "/path/to/elearning-edx", "/openedx/elearning-edx"),
             ],
             bindmount.parse_explicit_mount(
-                "lms,cms:/path/to/edx-platform:/openedx/edx-platform"
+                "lms,cms:/path/to/elearning-edx:/openedx/elearning-edx"
             ),
         )
         self.assertEqual(
             [
-                ("lms", "/path/to/edx-platform", "/openedx/edx-platform"),
-                ("cms", "/path/to/edx-platform", "/openedx/edx-platform"),
+                ("lms", "/path/to/elearning-edx", "/openedx/elearning-edx"),
+                ("cms", "/path/to/elearning-edx", "/openedx/elearning-edx"),
             ],
             bindmount.parse_explicit_mount(
-                "lms, cms:/path/to/edx-platform:/openedx/edx-platform"
+                "lms, cms:/path/to/elearning-edx:/openedx/elearning-edx"
             ),
         )
         self.assertEqual(
             [
-                ("lms", "/path/to/edx-platform", "/openedx/edx-platform"),
-                ("lms-worker", "/path/to/edx-platform", "/openedx/edx-platform"),
+                ("lms", "/path/to/elearning-edx", "/openedx/elearning-edx"),
+                ("lms-worker", "/path/to/elearning-edx", "/openedx/elearning-edx"),
             ],
             bindmount.parse_explicit_mount(
-                "lms,lms-worker:/path/to/edx-platform:/openedx/edx-platform"
+                "lms,lms-worker:/path/to/elearning-edx:/openedx/elearning-edx"
             ),
         )
         self.assertEqual(
-            [("lms", "/path/to/edx-platform", "/openedx/edx-platform")],
+            [("lms", "/path/to/elearning-edx", "/openedx/elearning-edx")],
             bindmount.parse_explicit_mount(
-                "lms,:/path/to/edx-platform:/openedx/edx-platform"
+                "lms,:/path/to/elearning-edx:/openedx/elearning-edx"
             ),
         )
 
@@ -53,6 +53,6 @@ class BindmountTests(unittest.TestCase):
         import tutor.commands.compose
 
         self.assertEqual(
-            [("openedx", "/path/to/edx-platform", "/openedx/edx-platform")],
-            bindmount.parse_implicit_mount("/path/to/edx-platform"),
+            [("openedx", "/path/to/elearning-edx", "/openedx/elearning-edx")],
+            bindmount.parse_implicit_mount("/path/to/elearning-edx"),
         )

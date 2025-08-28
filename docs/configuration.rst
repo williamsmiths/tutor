@@ -8,7 +8,7 @@ Tutor offers plenty of possibilities for platform customisation out of the box. 
 a. Modifying the Tutor :ref:`configuration parameters <configuration>`.
 b. Modifying the :ref:`Open edX docker image <customise>` that runs the Open edX platform.
 
-This section does not cover :ref:`plugin development <plugins>`. For simple changes, such as modifying the ``*.env.yml`` files or the edx-platform settings, *you should not fork edx-platform or tutor*! Instead, you should create a simple :ref:`plugin for Tutor <plugins_yaml>`.
+This section does not cover :ref:`plugin development <plugins>`. For simple changes, such as modifying the ``*.env.yml`` files or the elearning-edx settings, *you should not fork elearning-edx or tutor*! Instead, you should create a simple :ref:`plugin for Tutor <plugins_yaml>`.
 
 .. _configuration:
 
@@ -128,7 +128,7 @@ This configuration parameter sets the Local version of the Docker Compose projec
 Open edX customisation
 ~~~~~~~~~~~~~~~~~~~~~~
 
-- ``EDX_PLATFORM_REPOSITORY`` (default: ``"https://github.com/openedx/edx-platform.git"``)
+- ``EDX_PLATFORM_REPOSITORY`` (default: ``"https://github.com/openedx/elearning-edx.git"``)
 
 This defines the git repository from which you install Open edX platform code. If you run an Open edX fork with custom patches, set this to your own git repository. You may also override this configuration parameter at build time, by providing a ``--build-arg`` option.
 
@@ -154,7 +154,7 @@ These two configuration parameters define which Redis database to use for Open e
 
 - ``OPENEDX_EXTRA_PIP_REQUIREMENTS`` (default: ``[]``)
 
-Define extra pip packages that are going to be installed for edx-platform.
+Define extra pip packages that are going to be installed for elearning-edx.
 
 - ``NPM_REGISTRY`` (default: ``"https://registry.npmjs.org/"``)
 
@@ -162,11 +162,11 @@ This defines the registry from which you'll be pulling NPM packages when buildin
 
 - ``OPENEDX_AWS_ACCESS_KEY`` (default: ``""``)
 
-This configuration parameter sets the Django setting ``AWS_ACCESS_KEY_ID`` in edx-platform's LMS, CMS, envs, and production.py for use by the library django-storages with Amazon S3.
+This configuration parameter sets the Django setting ``AWS_ACCESS_KEY_ID`` in elearning-edx's LMS, CMS, envs, and production.py for use by the library django-storages with Amazon S3.
 
 - ``OPENEDX_AWS_SECRET_ACCESS_KEY`` (default: ``""``)
 
-This configuration parameter sets the Django setting ``AWS_SECRET_ACCESS_KEY`` in edx-platform's LMS, CMS, envs, and production.py for use by the library django-storages with Amazon S3.
+This configuration parameter sets the Django setting ``AWS_SECRET_ACCESS_KEY`` in elearning-edx's LMS, CMS, envs, and production.py for use by the library django-storages with Amazon S3.
 
 - ``OPENEDX_MYSQL_DATABASE`` (default: ``"openedx"``)
 
@@ -187,7 +187,7 @@ This defines the Studio's (CMS) OAUTH 2.0 Login (Key or Client ID) for SSO in th
 
 This defines the Studio's (CMS) OAUTH 2.0 Login (Key or Client ID) for SSO in the development environment.
 
-For more information, see `Enabling OAuth for Studio login <https://github.com/openedx/edx-platform/blob/master/docs/guides/studio_oauth.rst>`__.
+For more information, see `Enabling OAuth for Studio login <https://github.com/openedx/elearning-edx/blob/master/docs/guides/studio_oauth.rst>`__.
 
 JWTs
 ~~~~
@@ -324,7 +324,7 @@ This configuration parameter sets the Platform Name.
 Custom Open edX docker image
 ----------------------------
 
-There are different ways you can customise your Open edX platform. For instance, optional features can be activated during configuration. But if you want to add unique features to your Open edX platform, you are going to have to modify and re-build the ``openedx`` docker image. This is the image that contains the ``edx-platform`` repository: it is in charge of running the web application for the Open edX "core". Both the LMS and the CMS run from the ``openedx`` docker image.
+There are different ways you can customise your Open edX platform. For instance, optional features can be activated during configuration. But if you want to add unique features to your Open edX platform, you are going to have to modify and re-build the ``openedx`` docker image. This is the image that contains the ``elearning-edx`` repository: it is in charge of running the web application for the Open edX "core". Both the LMS and the CMS run from the ``openedx`` docker image.
 
 On a vanilla platform deployed by Tutor, the image that is run is downloaded from the `williamsmiths/openedx repository on Docker Hub <https://hub.docker.com/r/williamsmiths/openedx/>`_. This is also the image that is downloaded whenever we run ``tutor images pull openedx``. But you can decide to build the image locally instead of downloading it. To do so, build and tag the ``openedx`` image::
 
@@ -369,23 +369,23 @@ Then, the ``openedx`` docker image must be rebuilt::
 
 .. _edx_platform_fork:
 
-Running a fork of ``edx-platform``
+Running a fork of ``elearning-edx``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-You may want to run your own flavor of edx-platform instead of the `official version <https://github.com/openedx/edx-platform/>`_. To do so, you will have to re-build the openedx image with the proper environment variables pointing to your repository and version::
+You may want to run your own flavor of elearning-edx instead of the `official version <https://github.com/openedx/elearning-edx/>`_. To do so, you will have to re-build the openedx image with the proper environment variables pointing to your repository and version::
 
     tutor images build openedx \
-        --build-arg EDX_PLATFORM_REPOSITORY=https://mygitrepo/edx-platform.git \
+        --build-arg EDX_PLATFORM_REPOSITORY=https://mygitrepo/elearning-edx.git \
         --build-arg EDX_PLATFORM_VERSION=my-tag-or-branch
 
-Note that your edx-platform version must be a fork of the latest release **tag** (and not branch) in order to work. This latest tag can be obtained by running::
+Note that your elearning-edx version must be a fork of the latest release **tag** (and not branch) in order to work. This latest tag can be obtained by running::
 
     tutor config printvalue OPENEDX_COMMON_VERSION
 
 If you don't create your fork from this tag, you *will* have important compatibility issues with other services. In particular:
 
-- Do not try to run a fork from an older (pre-Teak) version of edx-platform: this will simply not work.
-- Do not try to run a fork from the edx-platform master branch: there is a 99% probability that it will fail.
+- Do not try to run a fork from an older (pre-Teak) version of elearning-edx: this will simply not work.
+- Do not try to run a fork from the elearning-edx master branch: there is a 99% probability that it will fail.
 - Do not try to run a fork from the release/teak branch: Tutor will attempt to apply security and bug fix patches that might already be included in the release/teak but which were not yet applied to the latest release tag. Patch application will thus fail if you base your fork from the release/teak branch.
 
 .. _i18n:

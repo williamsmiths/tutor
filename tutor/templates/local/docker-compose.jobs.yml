@@ -23,8 +23,8 @@ services:
         SERVICE_VARIANT: lms
         DJANGO_SETTINGS_MODULE: lms.envs.tutor.production
       volumes:
-        - ../apps/openedx/settings/lms:/openedx/edx-platform/lms/envs/tutor:ro
-        - ../apps/openedx/settings/cms:/openedx/edx-platform/cms/envs/tutor:ro
+        - ../apps/openedx/settings/lms:/openedx/elearning-edx/lms/envs/tutor:ro
+        - ../apps/openedx/settings/cms:/openedx/elearning-edx/cms/envs/tutor:ro
         - ../apps/openedx/config:/openedx/config:ro
         {%- for mount in iter_mounts(MOUNTS, "openedx", "lms-job") %}
         - {{ mount }}
@@ -37,8 +37,8 @@ services:
         SERVICE_VARIANT: cms
         DJANGO_SETTINGS_MODULE: cms.envs.tutor.production
       volumes:
-        - ../apps/openedx/settings/lms:/openedx/edx-platform/lms/envs/tutor:ro
-        - ../apps/openedx/settings/cms:/openedx/edx-platform/cms/envs/tutor:ro
+        - ../apps/openedx/settings/lms:/openedx/elearning-edx/lms/envs/tutor:ro
+        - ../apps/openedx/settings/cms:/openedx/elearning-edx/cms/envs/tutor:ro
         - ../apps/openedx/config:/openedx/config:ro
         {%- for mount in iter_mounts(MOUNTS, "openedx", "cms-job") %}
         - {{ mount }}

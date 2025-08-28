@@ -1,23 +1,23 @@
 .. _edx_platform:
 
-Working on edx-platform as a developer
+Working on elearning-edx as a developer
 ======================================
 
 Tutor supports running in development with ``tutor dev`` commands. Developers frequently need to work on a fork of some repository. The question then becomes: how to make their changes available within the "openedx" Docker container? 
 
-For instance, when troubleshooting an issue in `edx-platform <https://github.com/openedx/edx-platform>`__, we would like to make some changes to a local fork of that repository, and then apply these changes immediately in the "lms" and the "cms" containers (but also "lms-worker", "cms-worker", etc.)
+For instance, when troubleshooting an issue in `elearning-edx <https://github.com/openedx/elearning-edx>`__, we would like to make some changes to a local fork of that repository, and then apply these changes immediately in the "lms" and the "cms" containers (but also "lms-worker", "cms-worker", etc.)
 
 Similarly, when developing a custom XBlock, we would like to hot-reload any change we make to the XBlock source code within the containers.
 
 Tutor provides a simple solution to these questions. In both cases, the solution takes the form of a ``tutor mounts add ...`` command.
 
-Working on the "edx-platform" repository
+Working on the "elearning-edx" repository
 ----------------------------------------
 
 Download the code from the upstream repository::
 
-    cd /my/workspace/edx-platform
-    git clone https://github.com/openedx/edx-platform .
+    cd /my/workspace/elearning-edx
+    git clone https://github.com/openedx/elearning-edx .
 
 Check out the right version of the upstream repository. If you are working on the `current "zebulon" release <https://docs.openedx.org/en/latest/community/release_notes/index.html>`__ of Open edX, then you should checkout the corresponding branch::
 
@@ -29,47 +29,47 @@ On the other hand, if you are using :ref:`Tutor Main <main>`, then you should ch
 
     git checkout master
 
-Then, mount the edx-platform repository with Tutor::
+Then, mount the elearning-edx repository with Tutor::
 
-    tutor mounts add /my/workspace/edx-platform
+    tutor mounts add /my/workspace/elearning-edx
 
 This command does a few "magical" things 🧙 behind the scenes:
 
-1. Mount the edx-platform repository in the image at build-time. This means that when you run ``tutor images build openedx``, your custom repository will be used instead of the upstream. In particular, any change you've made to the installed requirements, static assets, etc. will be taken into account.
-2. Mount the edx-platform repository at run time. Thus, when you run ``tutor dev start``, any change you make to the edx-platform repository will be hot-reloaded.
+1. Mount the elearning-edx repository in the image at build-time. This means that when you run ``tutor images build openedx``, your custom repository will be used instead of the upstream. In particular, any change you've made to the installed requirements, static assets, etc. will be taken into account.
+2. Mount the elearning-edx repository at run time. Thus, when you run ``tutor dev start``, any change you make to the elearning-edx repository will be hot-reloaded.
 
 You can get a glimpse of how these auto-mounts work by running ``tutor mounts list``. It should output something similar to the following::
 
     $ tutor mounts list
-    - name: /home/data/regis/projets/overhang/repos/edx/edx-platform
+    - name: /home/data/regis/projets/overhang/repos/edx/elearning-edx
     build_mounts:
     - image: openedx
-        context: edx-platform
+        context: elearning-edx
     - image: openedx-dev
-        context: edx-platform
+        context: elearning-edx
     compose_mounts:
     - service: lms
-        container_path: /openedx/edx-platform
+        container_path: /openedx/elearning-edx
     - service: cms
-        container_path: /openedx/edx-platform
+        container_path: /openedx/elearning-edx
     - service: lms-worker
-        container_path: /openedx/edx-platform
+        container_path: /openedx/elearning-edx
     - service: cms-worker
-        container_path: /openedx/edx-platform
+        container_path: /openedx/elearning-edx
     - service: lms-job
-        container_path: /openedx/edx-platform
+        container_path: /openedx/elearning-edx
     - service: cms-job
-        container_path: /openedx/edx-platform
+        container_path: /openedx/elearning-edx
 
-Working on edx-platform Python dependencies
+Working on elearning-edx Python dependencies
 -------------------------------------------
 
-Quite often, developers don't want to work on edx-platform directly, but on a dependency of edx-platform. For instance: an XBlock. This works the same way as above. Let's take the example of the `"edx-ora2" <https://github.com/openedx/edx-ora2>`__ package, for open response assessments. First, clone the Python package::
+Quite often, developers don't want to work on elearning-edx directly, but on a dependency of elearning-edx. For instance: an XBlock. This works the same way as above. Let's take the example of the `"edx-ora2" <https://github.com/openedx/edx-ora2>`__ package, for open response assessments. First, clone the Python package::
 
     cd /my/workspace/edx-ora2
     git clone https://github.com/openedx/edx-ora2 .
 
-Then, check out the right version of the package. This is the version that is indicated in the `edx-platform/requirements/edx/base.txt <https://github.com/openedx/edx-platform/blob/release/teak/requirements/edx/base.txt>`__. Be careful that the version that is currently in use in your version of edx-platform is **not necessarily the head of the master branch**::
+Then, check out the right version of the package. This is the version that is indicated in the `elearning-edx/requirements/edx/base.txt <https://github.com/openedx/elearning-edx/blob/release/teak/requirements/edx/base.txt>`__. Be careful that the version that is currently in use in your version of elearning-edx is **not necessarily the head of the master branch**::
 
     git checkout <my-version-tag-or-branch>
 
@@ -113,7 +113,7 @@ To push your changes in production, you should do the same with ``tutor local`` 
     tutor images build openedx
     tutor local start -d
 
-What if my edx-platform package is not automatically bind-mounted?
+What if my elearning-edx package is not automatically bind-mounted?
 ------------------------------------------------------------------
 
 It is quite possible that your package is not automatically recognized and bind-mounted by Tutor. Out of the box, Tutor defines a set of regular expressions: if your package name matches this regular expression, it will be automatically bind-mounted. But if it does not, you have to tell Tutor about it.
@@ -128,7 +128,7 @@ After you implement and enable that plugin, ``tutor mounts list`` should display
 Debugging with breakpoints
 --------------------------
 
-To debug a local edx-platform repository, first, start development in detached mode (with ``-d``), add a `python breakpoint <https://docs.python.org/3/library/functions.html#breakpoint>`__ with ``breakpoint()`` anywhere in the code. Then, attach to the applicable service's container by running ``start`` (without ``-d``) followed by the service's name::
+To debug a local elearning-edx repository, first, start development in detached mode (with ``-d``), add a `python breakpoint <https://docs.python.org/3/library/functions.html#breakpoint>`__ with ``breakpoint()`` anywhere in the code. Then, attach to the applicable service's container by running ``start`` (without ``-d``) followed by the service's name::
 
   # Start in detached mode:
   tutor dev start -d
@@ -141,10 +141,10 @@ To debug a local edx-platform repository, first, start development in detached m
 
 To detach from the service without shutting it down, use ``Ctrl+p`` followed with ``Ctrl+q``.
 
-Running edx-platform unit tests
+Running elearning-edx unit tests
 -------------------------------
 
-It's possible to run the full set of unit tests that ship with `edx-platform <https://github.com/openedx/edx-platform/>`__. To do so, run a shell in the LMS development container::
+It's possible to run the full set of unit tests that ship with `elearning-edx <https://github.com/openedx/elearning-edx/>`__. To do so, run a shell in the LMS development container::
 
     tutor dev run lms bash
 
@@ -166,7 +166,7 @@ Then, run unit tests with ``pytest`` commands::
     pytest cms
 
 .. note::
-    Getting all edx-platform unit tests to pass on Tutor is currently a work-in-progress. Some unit tests are still failing. If you manage to fix some of these, please report your findings in the `Open edX forum <https://discuss.openedx.org/tag/tutor>`__.
+    Getting all elearning-edx unit tests to pass on Tutor is currently a work-in-progress. Some unit tests are still failing. If you manage to fix some of these, please report your findings in the `Open edX forum <https://discuss.openedx.org/tag/tutor>`__.
 
 Do I have to re-build the "openedx" Docker image after every change?
 --------------------------------------------------------------------

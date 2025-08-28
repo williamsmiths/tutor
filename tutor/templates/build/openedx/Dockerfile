@@ -35,12 +35,12 @@ RUN $PYENV_ROOT/bin/pyenv install $PYTHON_VERSION
 # Create virtualenv
 RUN $PYENV_ROOT/versions/$PYTHON_VERSION/bin/python -m venv /openedx/venv
 
-###### Checkout edx-platform code
+###### Checkout elearning-edx code
 FROM minimal AS code
 ARG EDX_PLATFORM_REPOSITORY={{ EDX_PLATFORM_REPOSITORY }}
 ARG EDX_PLATFORM_VERSION={{ EDX_PLATFORM_VERSION }}
-RUN mkdir -p /openedx/edx-platform
-WORKDIR /openedx/edx-platform
+RUN mkdir -p /openedx/elearning-edx
+WORKDIR /openedx/elearning-edx
 ADD --keep-git-dir=true $EDX_PLATFORM_REPOSITORY#$EDX_PLATFORM_VERSION .
 
 # Identify tutor user to apply patches using git
@@ -48,7 +48,7 @@ RUN git config --global user.email "tutor@overhang.io" \
   && git config --global user.name "Tutor"
 
 {%- if patch("openedx-dockerfile-git-patches-default") %}
-# Custom edx-platform patches
+# Custom elearning-edx patches
 {{ patch("openedx-dockerfile-git-patches-default") }}
 {%- elif TUTOR_BRANCH_IS_MAIN %}
 # Patches in Main node
@@ -56,14 +56,14 @@ RUN git config --global user.email "tutor@overhang.io" \
 # Patches in non-Main mode (i.e., Release mode)
 {%- endif %}
 
-{# Example: RUN curl -fsSL https://github.com/openedx/edx-platform/commit/<GITSHA1>.patch | git am #}
+{# Example: RUN curl -fsSL https://github.com/openedx/elearning-edx/commit/<GITSHA1>.patch | git am #}
 {{ patch("openedx-dockerfile-post-git-checkout") }}
 
 ##### Empty layer with just the repo at the root.
 # This is useful when overriding the build context with a host repo:
-# docker build --build-context edx-platform=/path/to/edx-platform
-FROM scratch AS edx-platform
-COPY --from=code /openedx/edx-platform /
+# docker build --build-context elearning-edx=/path/to/elearning-edx
+FROM scratch AS elearning-edx
+COPY --from=code /openedx/elearning-edx /
 
 {# Create empty layers for all bind-mounted directories #}
 {% for name in iter_mounted_directories(MOUNTS, "openedx") %}
@@ -93,10 +93,10 @@ RUN --mount=type=cache,target=/openedx/.cache/pip,sharing=shared \
     setuptools==69.1.1 pip==24.0 wheel==0.43.0
 
 # Install base requirements and asset-building requirements
-RUN --mount=type=bind,from=edx-platform,source=/requirements/edx/base.txt,target=/openedx/edx-platform/requirements/edx/base.txt \
-    --mount=type=bind,from=edx-platform,source=/requirements/edx/assets.txt,target=/openedx/edx-platform/requirements/edx/assets.txt \
+RUN --mount=type=bind,from=elearning-edx,source=/requirements/edx/base.txt,target=/openedx/elearning-edx/requirements/edx/base.txt \
+    --mount=type=bind,from=elearning-edx,source=/requirements/edx/assets.txt,target=/openedx/elearning-edx/requirements/edx/assets.txt \
     --mount=type=cache,target=/openedx/.cache/pip,sharing=shared \
-    pip install -r /openedx/edx-platform/requirements/edx/base.txt -r /openedx/edx-platform/requirements/edx/assets.txt
+    pip install -r /openedx/elearning-edx/requirements/edx/base.txt -r /openedx/elearning-edx/requirements/edx/assets.txt
 
 # Install extra requirements
 RUN --mount=type=cache,target=/openedx/.cache/pip,sharing=shared \
@@ -126,17 +126,17 @@ RUN --mount=type=cache,target=/openedx/.cache/pip,sharing=shared \
 FROM python AS nodejs-requirements
 ENV PATH=/openedx/nodeenv/bin:/openedx/venv/bin:${PATH}
 
-# Install nodeenv with the version provided by edx-platform
-# https://github.com/openedx/edx-platform/blob/master/requirements/edx/assets.txt
+# Install nodeenv with the version provided by elearning-edx
+# https://github.com/openedx/elearning-edx/blob/master/requirements/edx/assets.txt
 RUN pip install nodeenv==1.9.1
 RUN nodeenv /openedx/nodeenv --node=18.20.1 --prebuilt
 
 # Install nodejs requirements
 ARG NPM_REGISTRY={{ NPM_REGISTRY }}
-WORKDIR /openedx/edx-platform
-RUN --mount=type=bind,from=edx-platform,source=/package.json,target=/openedx/edx-platform/package.json \
-    --mount=type=bind,from=edx-platform,source=/package-lock.json,target=/openedx/edx-platform/package-lock.json \
-    --mount=type=bind,from=edx-platform,source=/scripts/copy-node-modules.sh,target=/openedx/edx-platform/scripts/copy-node-modules.sh \
+WORKDIR /openedx/elearning-edx
+RUN --mount=type=bind,from=elearning-edx,source=/package.json,target=/openedx/elearning-edx/package.json \
+    --mount=type=bind,from=elearning-edx,source=/package-lock.json,target=/openedx/elearning-edx/package-lock.json \
+    --mount=type=bind,from=elearning-edx,source=/scripts/copy-node-modules.sh,target=/openedx/elearning-edx/scripts/copy-node-modules.sh \
     --mount=type=cache,target=/root/.npm,sharing=shared \
     npm clean-install --no-audit --registry=$NPM_REGISTRY
 
@@ -164,15 +164,15 @@ USER ${APP_USER_ID}
 
 # https://hub.docker.com/r/powerman/dockerize/tags
 COPY --link --from=docker.io/powerman/dockerize:0.19.0 /usr/local/bin/dockerize /usr/local/bin/dockerize
-COPY --link --chown=$APP_USER_ID:$APP_USER_ID --from=edx-platform / /openedx/edx-platform
+COPY --link --chown=$APP_USER_ID:$APP_USER_ID --from=elearning-edx / /openedx/elearning-edx
 COPY --link --chown=$APP_USER_ID:$APP_USER_ID --from=python /opt/pyenv /opt/pyenv
 COPY --link --chown=$APP_USER_ID:$APP_USER_ID --from=python-requirements /openedx/venv /openedx/venv
 COPY --link --chown=$APP_USER_ID:$APP_USER_ID --from=python-requirements /mnt /mnt
 COPY --link --chown=$APP_USER_ID:$APP_USER_ID --from=nodejs-requirements /openedx/nodeenv /openedx/nodeenv
-COPY --link --chown=$APP_USER_ID:$APP_USER_ID --from=nodejs-requirements /openedx/edx-platform/node_modules /openedx/node_modules
+COPY --link --chown=$APP_USER_ID:$APP_USER_ID --from=nodejs-requirements /openedx/elearning-edx/node_modules /openedx/node_modules
 
-# Symlink node_modules such that we can bind-mount the edx-platform repository
-RUN ln -s /openedx/node_modules /openedx/edx-platform/node_modules
+# Symlink node_modules such that we can bind-mount the elearning-edx repository
+RUN ln -s /openedx/node_modules /openedx/elearning-edx/node_modules
 
 ENV PATH=/openedx/venv/bin:./node_modules/.bin:/openedx/nodeenv/bin:${PATH}
 ENV VIRTUAL_ENV=/openedx/venv/
@@ -180,7 +180,7 @@ ENV COMPREHENSIVE_THEME_DIRS=/openedx/themes
 ENV STATIC_ROOT_LMS=/openedx/staticfiles
 ENV STATIC_ROOT_CMS=/openedx/staticfiles/studio
 
-WORKDIR /openedx/edx-platform
+WORKDIR /openedx/elearning-edx
 
 {# Install auto-mounted directories as Python packages. #}
 {% for name in iter_mounted_directories(MOUNTS, "openedx") %}
@@ -188,7 +188,7 @@ COPY --link --chown=$APP_USER_ID:$APP_USER_ID --from=mnt-{{ name }} / /mnt/{{ na
 RUN pip install -e "/mnt/{{ name }}"
 {% endfor %}
 
-# We install edx-platform here because it creates an egg-info folder in the current
+# We install elearning-edx here because it creates an egg-info folder in the current
 # repo. We need both the source code and the virtualenv to run this command.
 RUN pip install -e .
 
@@ -207,7 +207,7 @@ RUN make clean_translations
 RUN ./manage.py lms --settings=tutor.i18n pull_plugin_translations --verbose --repository='{{ ATLAS_REPOSITORY }}' --revision='{{ ATLAS_REVISION }}' {{ ATLAS_OPTIONS }}
 RUN ./manage.py lms --settings=tutor.i18n pull_xblock_translations --repository='{{ ATLAS_REPOSITORY }}' --revision='{{ ATLAS_REVISION }}' {{ ATLAS_OPTIONS }}
 RUN atlas pull --repository='{{ ATLAS_REPOSITORY }}' --revision='{{ ATLAS_REVISION }}' {{ ATLAS_OPTIONS }} \
-    translations/edx-platform/conf/locale:conf/locale \
+    translations/elearning-edx/conf/locale:conf/locale \
     translations/studio-frontend/src/i18n/messages:conf/plugins-locale/studio-frontend
 RUN ./manage.py lms --settings=tutor.i18n compile_xblock_translations
 RUN ./manage.py cms --settings=tutor.i18n compile_xblock_translations
@@ -244,10 +244,10 @@ RUN ./manage.py lms collectstatic --noinput --settings=tutor.assets && \
 RUN mkdir /openedx/data
 
 # If this "canary" file is missing from a container, then that indicates that a
-# local edx-platform was bind-mounted into that container, thus overwriting the
-# canary. This information is useful during edx-platform initialisation.
+# local elearning-edx was bind-mounted into that container, thus overwriting the
+# canary. This information is useful during elearning-edx initialisation.
 RUN echo \
-  "This copy of edx-platform was built into a Docker image." \
+  "This copy of elearning-edx was built into a Docker image." \
   > bindmount-canary
 
 # service variant is "lms" or "cms"
@@ -290,7 +290,7 @@ ENV PYTHONBREAKPOINT=ipdb.set_trace
 ENV EDXAPP_TEST_MONGO_HOST={{ MONGODB_HOST }}
 ENV EDXAPP_TEST_MONGO_PORT_NUM={{ MONGODB_PORT }}
 
-# Recompile static assets: in development mode all static assets are stored in edx-platform,
+# Recompile static assets: in development mode all static assets are stored in elearning-edx,
 # and the location of these files is stored in webpack-stats.json. If we don't recompile
 # static assets, then production assets will be served instead.
 RUN rm -r /openedx/staticfiles && \

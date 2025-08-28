@@ -222,7 +222,7 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ALLOW_INSECURE = {% if ENABLE_HTTPS %}False{% else %}True{% endif %}
 # Note: CORS_ALLOW_HEADERS is intentionally not defined here, because it should
-# be consistent across deployments, and is therefore set in edx-platform.
+# be consistent across deployments, and is therefore set in elearning-edx.
 
 # Add your MFE and third-party app domains here
 CORS_ORIGIN_WHITELIST = []

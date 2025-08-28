@@ -89,9 +89,9 @@ spec:
           ports:
             - containerPort: 8000
           volumeMounts:
-            - mountPath: /openedx/edx-platform/lms/envs/tutor/
+            - mountPath: /openedx/elearning-edx/lms/envs/tutor/
               name: settings-lms
-            - mountPath: /openedx/edx-platform/cms/envs/tutor/
+            - mountPath: /openedx/elearning-edx/cms/envs/tutor/
               name: settings-cms
             - mountPath: /openedx/config
               name: config
@@ -150,9 +150,9 @@ spec:
           - name: DJANGO_SETTINGS_MODULE
             value: cms.envs.tutor.production
           volumeMounts:
-            - mountPath: /openedx/edx-platform/lms/envs/tutor/
+            - mountPath: /openedx/elearning-edx/lms/envs/tutor/
               name: settings-lms
-            - mountPath: /openedx/edx-platform/cms/envs/tutor/
+            - mountPath: /openedx/elearning-edx/cms/envs/tutor/
               name: settings-cms
             - mountPath: /openedx/config
               name: config
@@ -200,9 +200,9 @@ spec:
           ports:
             - containerPort: 8000
           volumeMounts:
-            - mountPath: /openedx/edx-platform/lms/envs/tutor/
+            - mountPath: /openedx/elearning-edx/lms/envs/tutor/
               name: settings-lms
-            - mountPath: /openedx/edx-platform/cms/envs/tutor/
+            - mountPath: /openedx/elearning-edx/cms/envs/tutor/
               name: settings-cms
             - mountPath: /openedx/config
               name: config
@@ -260,9 +260,9 @@ spec:
           - name: DJANGO_SETTINGS_MODULE
             value: lms.envs.tutor.production
           volumeMounts:
-            - mountPath: /openedx/edx-platform/lms/envs/tutor/
+            - mountPath: /openedx/elearning-edx/lms/envs/tutor/
               name: settings-lms
-            - mountPath: /openedx/edx-platform/cms/envs/tutor/
+            - mountPath: /openedx/elearning-edx/cms/envs/tutor/
               name: settings-cms
             - mountPath: /openedx/config
               name: config

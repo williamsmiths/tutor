@@ -78,13 +78,13 @@ def _mount_edx_platform_build(
     volumes: list[tuple[str, str]], path: str
 ) -> list[tuple[str, str]]:
     """
-    Automatically add an edx-platform repo from the host to the build context whenever
+    Automatically add an elearning-edx repo from the host to the build context whenever
     it is added to the `MOUNTS` setting.
     """
-    if os.path.basename(path) == "edx-platform":
+    if os.path.basename(path) == "elearning-edx":
         volumes += [
-            ("openedx", "edx-platform"),
-            ("openedx-dev", "edx-platform"),
+            ("openedx", "elearning-edx"),
+            ("openedx-dev", "elearning-edx"),
         ]
     return volumes
 
@@ -94,11 +94,11 @@ def _mount_edx_platform_compose(
     volumes: list[tuple[str, str]], name: str
 ) -> list[tuple[str, str]]:
     """
-    When mounting edx-platform with `tutor mounts add /path/to/edx-platform`,
+    When mounting elearning-edx with `tutor mounts add /path/to/elearning-edx`,
     bind-mount the host repo in the lms/cms containers.
     """
-    if name == "edx-platform":
-        path = "/openedx/edx-platform"
+    if name == "elearning-edx":
+        path = "/openedx/elearning-edx"
         volumes.append(("openedx", path))
     return volumes
 
@@ -150,7 +150,7 @@ def _mount_edx_platform_python_requirements_compose(
     volumes: list[tuple[str, str]], folder_name: str
 ) -> list[tuple[str, str]]:
     """
-    Automatically bind-mount edx-platform Python requirements at runtime.
+    Automatically bind-mount elearning-edx Python requirements at runtime.
     """
     for image_name, regex in hooks.Filters.MOUNTED_DIRECTORIES.iterate():
         if re.match(regex, folder_name):

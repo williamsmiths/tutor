@@ -158,7 +158,7 @@ The error produced should help better understand what is happening.
 The chosen default language does not display properly
 -----------------------------------------------------
 
-By default, Open edX comes with a `limited set <https://github.com/openedx/openedx-translations/tree/main/translations/edx-platform/conf/locale>` of translation/localization files.
+By default, Open edX comes with a `limited set <https://github.com/openedx/openedx-translations/tree/main/translations/elearning-edx/conf/locale>` of translation/localization files.
 
 Refer to the :ref:`i18n` section for more information about using your own translations.
 
@@ -200,7 +200,7 @@ All build commands should now make use of the newly configured builder. To later
 fatal: the remote end hung up unexpectedly / fatal: early EOF / fatal: index-pack failed when running ``tutor images build ...``
 --------------------------------------------------------------------------------------------------------------------------------
 
-This issue can occur due to problems with the network connection while cloning edx-platform which is a fairly large repository.
+This issue can occur due to problems with the network connection while cloning elearning-edx which is a fairly large repository.
 
 First, try to run the same command once again to see if it works, as the network connection can sometimes drop during the build process.
 

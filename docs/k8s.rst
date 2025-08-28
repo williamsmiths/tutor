@@ -144,7 +144,7 @@ For instance, to run a Python shell in the lms container, run::
 Running a custom "openedx" Docker image
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Some Tutor plugins and customization procedures require that the "openedx" image be rebuilt (see :ref:`customization <custom_openedx_docker_image>`). This is for instance the case if you want to :ref:`install a custom XBlock <custom_extra_xblocks>` or :ref:`run an edx-platform fork <edx_platform_fork>`. When running Open edX on Kubernetes, your custom images will have to be downloaded from a custom registry. You should define a custom image name, build the image and then push them to your custom registry. For instance, for the "openedx" image::
+Some Tutor plugins and customization procedures require that the "openedx" image be rebuilt (see :ref:`customization <custom_openedx_docker_image>`). This is for instance the case if you want to :ref:`install a custom XBlock <custom_extra_xblocks>` or :ref:`run an elearning-edx fork <edx_platform_fork>`. When running Open edX on Kubernetes, your custom images will have to be downloaded from a custom registry. You should define a custom image name, build the image and then push them to your custom registry. For instance, for the "openedx" image::
 
     tutor config save --set "DOCKER_IMAGE_OPENEDX=docker.io/myusername/openedx:{{ TUTOR_VERSION }}"
     tutor images build openedx

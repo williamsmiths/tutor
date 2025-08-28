@@ -6,7 +6,7 @@ FAQ
 What is Tutor?
 --------------
 
-Tutor is an open source distribution of the `Open edX platform <https://open.edx.org>`_. It uses the original code from the various Open edX repositories, such as `edx-platform <https://github.com/openedx/edx-platform/>`_, `frontend-app-learning <https://github.com/openedx/frontend-app-learning>`_, etc. and packages everything in a way that makes it very easy to install, administer and upgrade an Open edX installation. In particular, all services are run inside Docker containers.
+Tutor is an open source distribution of the `Open edX platform <https://open.edx.org>`_. It uses the original code from the various Open edX repositories, such as `elearning-edx <https://github.com/openedx/elearning-edx/>`_, `frontend-app-learning <https://github.com/openedx/frontend-app-learning>`_, etc. and packages everything in a way that makes it very easy to install, administer and upgrade an Open edX installation. In particular, all services are run inside Docker containers.
 
 Tutor makes it possible to deploy an Open edX instance locally, with `docker-compose <https://docs.docker.com/compose/overview/>`_ or on an existing `Kubernetes cluster <http://kubernetes.io/>`_. Want to learn more? Take a look at the :ref:`getting started concepts <intro>`.
 

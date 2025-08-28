@@ -100,8 +100,8 @@ services:
       UWSGI_WORKERS: {{ OPENEDX_LMS_UWSGI_WORKERS }}
     restart: unless-stopped
     volumes:
-      - ../apps/openedx/settings/lms:/openedx/edx-platform/lms/envs/tutor:ro
-      - ../apps/openedx/settings/cms:/openedx/edx-platform/cms/envs/tutor:ro
+      - ../apps/openedx/settings/lms:/openedx/elearning-edx/lms/envs/tutor:ro
+      - ../apps/openedx/settings/cms:/openedx/elearning-edx/cms/envs/tutor:ro
       - ../apps/openedx/config:/openedx/config:ro
       - ../apps/openedx/uwsgi.ini:/openedx/uwsgi.ini:ro
       - ../../data/lms:/openedx/data
@@ -127,8 +127,8 @@ services:
       UWSGI_WORKERS: {{ OPENEDX_CMS_UWSGI_WORKERS }}
     restart: unless-stopped
     volumes:
-      - ../apps/openedx/settings/lms:/openedx/edx-platform/lms/envs/tutor:ro
-      - ../apps/openedx/settings/cms:/openedx/edx-platform/cms/envs/tutor:ro
+      - ../apps/openedx/settings/lms:/openedx/elearning-edx/lms/envs/tutor:ro
+      - ../apps/openedx/settings/cms:/openedx/elearning-edx/cms/envs/tutor:ro
       - ../apps/openedx/config:/openedx/config:ro
       - ../apps/openedx/uwsgi.ini:/openedx/uwsgi.ini:ro
       - ../../data/cms:/openedx/data

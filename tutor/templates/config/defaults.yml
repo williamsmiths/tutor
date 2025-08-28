@@ -27,7 +27,7 @@ DOCKER_IMAGE_PERMISSIONS: "{{ DOCKER_REGISTRY }}williamsmiths/openedx-permission
 DOCKER_IMAGE_REDIS: "docker.io/redis:7.4.5"
 # https://hub.docker.com/r/devture/exim-relay/tags
 DOCKER_IMAGE_SMTP: "docker.io/devture/exim-relay:4.96-r1-0"
-EDX_PLATFORM_REPOSITORY: "https://github.com/openedx/edx-platform.git"
+EDX_PLATFORM_REPOSITORY: "https://github.com/openedx/elearning-edx.git"
 EDX_PLATFORM_VERSION: "{{ OPENEDX_COMMON_VERSION }}"
 ENABLE_HTTPS: false
 ENABLE_WEB_PROXY: true

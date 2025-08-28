@@ -58,7 +58,7 @@ def _add_core_init_tasks() -> None:
                 "lms",
                 env.read_core_template_file("jobs", "init", "mounted-directories.sh"),
             ),
-            # If edx-platform is mounted, then we may need to perform some setup
+            # If elearning-edx is mounted, then we may need to perform some setup
             # before other initialization scripts can be run.
             priority=priorities.HIGH,
         )
@@ -198,7 +198,7 @@ git clone {repo} --branch {version} --depth 1 /tmp/library
 
 # Fail loudly if:
 # * there no library.xml files, or
-# * any library.xml is not within a directory named "library/" (upstream edx-platform expectation).
+# * any library.xml is not within a directory named "library/" (upstream elearning-edx expectation).
 if ! find /tmp/library -name library.xml | grep -q "." ; then
     echo "ERROR: No library.xml files found in repository. Are you sure this is the right repository and version?"
     exit 1
@@ -219,8 +219,8 @@ done"""
 
 
 @click.command(
-    name="print-edx-platform-setting",
-    help="Print the value of an edx-platform Django setting.",
+    name="print-elearning-edx-setting",
+    help="Print the value of an elearning-edx Django setting.",
 )
 @click.argument("setting")
 @click.option(

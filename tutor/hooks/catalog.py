@@ -216,11 +216,11 @@ class Filters:
     #:
     #: This filter is for processing values of the ``MOUNTS`` setting such as::
     #:
-    #:     tutor mounts add /path/to/edx-platform
+    #:     tutor mounts add /path/to/elearning-edx
     #:
     #: In this example, this host folder would be bind-mounted in different containers
     #: (lms, lms-worker, cms, cms-worker, lms-job, cms-job) at the
-    #: /openedx/edx-platform location. Plugin developers may implement this filter to
+    #: /openedx/elearning-edx location. Plugin developers may implement this filter to
     #: define custom behaviour when mounting folders that relate to their plugins. For
     #: instance, the credentials plugin may process the ``/path/to/credentials`` value.
     #:
@@ -233,7 +233,7 @@ class Filters:
     #:   path must be slash-separated ("/"). Thus, do not use ``os.path.join`` to generate
     #:   the ``path`` because it will fail on Windows.
     #: :parameter str name: basename of the host-mounted folder. In the example above,
-    #:   this is "edx-platform". When implementing this filter you should check this name to
+    #:   this is "elearning-edx". When implementing this filter you should check this name to
     #:   conditionally add mounts.
     COMPOSE_MOUNTS: Filter[list[tuple[str, str]], [str]] = Filter()
 
@@ -427,20 +427,20 @@ class Filters:
     #: time. At build-time, they will be added to a layer named "mnt-{name}". At
     #: run-time, they wll be mounted in ``/mnt/<name>``.
     #:
-    #: In the case of edx-platform, ``pip install -e .`` will be run in this directory
+    #: In the case of elearning-edx, ``pip install -e .`` will be run in this directory
     #: at build-time. And the same host directory will be bind-mounted in that location
-    #: at run time. This allows users to transparently work on edx-platform
+    #: at run time. This allows users to transparently work on elearning-edx
     #: dependencies, such as Python packages.
     #:
-    #: By default, xblocks and some common edx-platform packages are already present in
+    #: By default, xblocks and some common elearning-edx packages are already present in
     #: this filter, and associated to the "openedx" image. Add your own Python
     #: dependencies to this filter to make it easier for users to work on the
     #: dependencies of your app.
     #:
-    #: See the list of all edx-platform base requirements here:
-    #: https://github.com/openedx/edx-platform/blob/master/requirements/edx/base.txt
+    #: See the list of all elearning-edx base requirements here:
+    #: https://github.com/openedx/elearning-edx/blob/master/requirements/edx/base.txt
     #:
-    #: This filter was mostly designed for edx-platform, but it can be used by any
+    #: This filter was mostly designed for elearning-edx, but it can be used by any
     #: Python-based Docker image as well. The Dockerfile must declare mounted layers::
     #:
     #:     {% for name in iter_mounted_directories(MOUNTS, "yourimage") %}
