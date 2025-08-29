@@ -196,7 +196,7 @@ print_status "Đang tạo tài khoản admin..."
 
 # Check if user is in docker group, if not use sudo
 if groups | grep -q '\bdocker\b'; then
-    ./venv/bin/tutor local do createuser --staff --superuser admin admin@example.com <<EOF
+    ./venv/bin/tutor local do createuser --staff --superuser admin admin@duytan.edu.vn <<EOF
 123123
 123123
 EOF

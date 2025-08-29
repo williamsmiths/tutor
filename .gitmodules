@@ -1,0 +1,8 @@
+
+[submodule "edx-platform"]
+	path = edx-platform
+	url = git@github.com:williamsmiths/edx-platform.git
+
+[submodule "frontend-app-learner-dashboard"]
+	path = frontend-app-learner-dashboard
+	url = git@github.com:williamsmiths/frontend-app-learner-dashboard.git
