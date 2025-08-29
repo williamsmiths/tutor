@@ -1,18 +1,18 @@
 
 [submodule "edx-platform"]
 	path = edx-platform
-	url = git@github.com:williamsmiths/edx-platform.git
+	url = https://github.com/williamsmiths/edx-platform.git
 
 [submodule "frontend-app-learner-dashboard"]
 	path = frontend-app-learner-dashboard
-	url = git@github.com:williamsmiths/frontend-app-learner-dashboard.git
+	url = https://github.com/williamsmiths/frontend-app-learner-dashboard.git
 
 
 [submodule "frontend-app-learning"]
 	path = frontend-app-learning
-	url = git@github.com:williamsmiths/frontend-app-learning.git
+	url = https://github.com/williamsmiths/frontend-app-learning.git
 
 
 [submodule "frontend-app-authn"]
 	path = frontend-app-authn
-	url = git@github.com:williamsmiths/frontend-app-authn.git
+	url = https://github.com/williamsmiths/frontend-app-authn.git
