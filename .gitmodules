@@ -6,3 +6,13 @@
 [submodule "frontend-app-learner-dashboard"]
 	path = frontend-app-learner-dashboard
 	url = git@github.com:williamsmiths/frontend-app-learner-dashboard.git
+
+
+[submodule "frontend-app-learning"]
+	path = frontend-app-learning
+	url = git@github.com:williamsmiths/frontend-app-learning.git
+
+
+[submodule "frontend-app-authn"]
+	path = frontend-app-authn
+	url = git@github.com:williamsmiths/frontend-app-authn.git

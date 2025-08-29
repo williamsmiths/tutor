@@ -1,3 +1,12 @@
+.. _Tutor: https://github.com/williamsmiths/tutor-edx
+.. _Site Ops home on docs.openedx.org: https://docs.openedx.org/en/latest/site_ops/index.html
+.. _development mode: https://docs.tutor.edly.io/dev.html
+.. _building static assets: ./docs/references/static-assets.rst
+.. _Authentication MFE: https://github.com/williamsmiths/frontend-app-authn/
+.. _Learner Home MFE: https://github.com/williamsmiths/frontend-app-learner-dashboard
+.. _Learning MFE: https://github.com/williamsmiths/frontend-app-learning/
+
+
 Tutor: the Docker-based Open edX distribution designed for peace of mind
 ========================================================================
 
