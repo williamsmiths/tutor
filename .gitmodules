@@ -1,8 +1,4 @@
 
-[submodule "edx-platform"]
-	path = edx-platform
-	url = https://github.com/williamsmiths/edx-platform.git
-	branch = release/teak
 
 [submodule "frontend-app-learner-dashboard"]
 	path = frontend-app-learner-dashboard
