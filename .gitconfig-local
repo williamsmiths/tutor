@@ -1,0 +1,12 @@
+[alias]
+    # Alias để fix submodules
+    fixsub = "!./fix-submodules.sh"
+    
+    # Alias để pull submodules an toàn
+    pullsub = "!./pull-submodules.sh"
+    
+    # Alias để kiểm tra trạng thái submodules
+    substatus = "submodule status"
+    
+    # Alias để update submodules
+    subupdate = "submodule update --init --recursive"
