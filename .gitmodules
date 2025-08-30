@@ -7,13 +7,16 @@
 [submodule "frontend-app-learner-dashboard"]
 	path = frontend-app-learner-dashboard
 	url = https://github.com/williamsmiths/frontend-app-learner-dashboard.git
+	branch = release/teak
 
 
 [submodule "frontend-app-learning"]
 	path = frontend-app-learning
 	url = https://github.com/williamsmiths/frontend-app-learning.git
+	branch = release/teak
 
 
 [submodule "frontend-app-authn"]
 	path = frontend-app-authn
 	url = https://github.com/williamsmiths/frontend-app-authn.git
+	branch = release/teak
