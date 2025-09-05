@@ -22,3 +22,7 @@
 	path = frontend-app-catalog
 	url = https://github.com/williamsmiths/frontend-app-catalog.git
 	branch = teak
+[submodule "frontend-app-profile"]
+	path = frontend-app-profile
+	url = https://github.com/williamsmiths/frontend-app-profile.git
+	branch = master
