@@ -10,3 +10,6 @@
     
     # Alias để update submodules
     subupdate = "submodule update --init --recursive"
+    
+    # Alias để pull tất cả submodules với remote
+    pullall = "submodule update --init --recursive --remote"
