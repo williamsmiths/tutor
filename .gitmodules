@@ -18,11 +18,11 @@
 	path = frontend-app-authn
 	url = https://github.com/williamsmiths/frontend-app-authn.git
 	branch = release/teak
-[submodule "frontend-app-catalog"]
-	path = frontend-app-catalog
-	url = https://github.com/williamsmiths/frontend-app-catalog.git
-	branch = teak
 [submodule "frontend-app-profile"]
 	path = frontend-app-profile
 	url = https://github.com/williamsmiths/frontend-app-profile.git
+	branch = master
+[submodule "frontend-component-header"]
+	path = frontend-component-header
+	url = https://github.com/williamsmiths/frontend-component-header.git
 	branch = master

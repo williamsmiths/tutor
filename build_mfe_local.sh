@@ -21,19 +21,19 @@ DOCKERHUB_API_URL="https://hub.docker.com/v2/repositories"
 
 # Function to print colored output
 print_info() {
-    echo -e "${BLUE}[INFO]${NC} $1"
+    echo -e "${BLUE}[INFO]${NC} $1" 1>&2
 }
 
 print_success() {
-    echo -e "${GREEN}[SUCCESS]${NC} $1"
+    echo -e "${GREEN}[SUCCESS]${NC} $1" 1>&2
 }
 
 print_warning() {
-    echo -e "${YELLOW}[WARNING]${NC} $1"
+    echo -e "${YELLOW}[WARNING]${NC} $1" 1>&2
 }
 
 print_error() {
-    echo -e "${RED}[ERROR]${NC} $1"
+    echo -e "${RED}[ERROR]${NC} $1" 1>&2
 }
 
 # Function to get latest version from Docker Hub
@@ -51,38 +51,51 @@ get_latest_version() {
         return 1
     fi
     
-    # Extract version tags (format: X.Y.Z-suffix)
-    local versions=$(echo "$response" | grep -o '"name":"[^"]*"' | grep -o '[0-9]\+\.[0-9]\+\.[0-9]\+-[a-zA-Z]\+' | sort -V)
-    
-    if [ -z "$versions" ]; then
-        print_error "Không tìm thấy version nào"
-        return 1
+    # Prefer tags in form vMAJOR.MINOR.PATCH
+    local vtags=$(echo "$response" | grep -o '"name":"v[0-9]\+\.[0-9]\+\.[0-9]\+"' | grep -o 'v[0-9]\+\.[0-9]\+\.[0-9]\+' | sort -V)
+    if [ -n "$vtags" ]; then
+        echo "$vtags" | tail -1
+        return 0
     fi
-    
-    # Get the latest version
-    local latest_version=$(echo "$versions" | tail -1)
-    echo "$latest_version"
+
+    # Fallback: tags like MAJOR.MINOR.PATCH or MAJOR.MINOR.PATCH-suffix
+    local rawtags=$(echo "$response" | grep -o '"name":"[0-9]\+\.[0-9]\+\.[0-9]\+\(-[a-zA-Z0-9_.-]\\+\)\?"' | grep -o '[0-9]\+\.[0-9]\+\.[0-9]\(\-[a-zA-Z0-9_.-]\+\)\?' | sort -V)
+    if [ -n "$rawtags" ]; then
+        local last=$(echo "$rawtags" | tail -1)
+        # Strip any suffix and add leading v
+        echo "v${last%%-*}"
+        return 0
+    fi
+
+    # Nothing found
+    return 1
 }
 
 # Function to increment version
 increment_version() {
     local version=$1
-    local major minor patch suffix
-    
-    # Parse version (e.g., "20.0.0-indigo")
-    if [[ $version =~ ^([0-9]+)\.([0-9]+)\.([0-9]+)-([a-zA-Z]+)$ ]]; then
+    local vprefix=""
+    local major minor patch
+
+    # Accept vMAJOR.MINOR.PATCH
+    if [[ $version =~ ^v([0-9]+)\.([0-9]+)\.([0-9]+)$ ]]; then
+        vprefix="v"
         major=${BASH_REMATCH[1]}
         minor=${BASH_REMATCH[2]}
         patch=${BASH_REMATCH[3]}
-        suffix=${BASH_REMATCH[4]}
-        
-        # Increment patch version
-        patch=$((patch + 1))
-        echo "${major}.${minor}.${patch}-${suffix}"
+    # Accept MAJOR.MINOR.PATCH(-suffix)
+    elif [[ $version =~ ^([0-9]+)\.([0-9]+)\.([0-9]+)(-.+)?$ ]]; then
+        vprefix="v"
+        major=${BASH_REMATCH[1]}
+        minor=${BASH_REMATCH[2]}
+        patch=${BASH_REMATCH[3]}
     else
         print_error "Không thể parse version: $version"
         return 1
     fi
+
+    patch=$((patch + 1))
+    echo "${vprefix}${major}.${minor}.${patch}"
 }
 
 # Function to check if Docker is running
@@ -171,14 +184,15 @@ main() {
     check_docker
     check_tutor
     
-    # Get latest version from source registry
-    local latest_version=$(get_latest_version "$SOURCE_REGISTRY" "$IMAGE_NAME")
-    if [ $? -ne 0 ]; then
-        print_error "Không thể lấy version mới nhất"
-        exit 1
+    # Get latest version from TARGET registry (where we push)
+    local latest_version=$(get_latest_version "$TARGET_REGISTRY" "$IMAGE_NAME")
+    if [ $? -ne 0 ] || [ -z "$latest_version" ]; then
+        # Fallback to base version from source image tag by stripping suffix
+        print_warning "Không tìm thấy version trên repo đích, dùng fallback từ source: 20.0.0-indigo → v20.0.0"
+        latest_version="v20.0.0"
     fi
     
-    print_info "Version mới nhất từ ${SOURCE_REGISTRY}/${IMAGE_NAME}: ${latest_version}"
+    print_info "Version mới nhất từ ${TARGET_REGISTRY}/${IMAGE_NAME}: ${latest_version}"
     
     # Increment version
     local new_version=$(increment_version "$latest_version")
@@ -210,14 +224,12 @@ main() {
     echo ""
     
     # Tag and push images
-    print_info "=== Bước 2: Tag và push images lên DockerHub ==="
-    tag_and_push "$current_tag" "$latest_version"
+    print_info "=== Bước 2: Tag và push image incremented version lên DockerHub ==="
     tag_and_push "$current_tag" "$new_version"
     echo ""
     
     print_success "=== Hoàn thành! ==="
-    print_info "MFE images đã được build và push:"
-    print_info "  - ${TARGET_REGISTRY}/${IMAGE_NAME}:${latest_version}"
+    print_info "MFE image đã được build và push:"
     print_info "  - ${TARGET_REGISTRY}/${IMAGE_NAME}:${new_version}"
     echo ""
     print_info "Bạn có thể cấu hình tutor để sử dụng image mới:"
