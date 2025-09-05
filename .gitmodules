@@ -13,3 +13,9 @@
 	path = frontend-app-authn
 	url = https://github.com/williamsmiths/frontend-app-authn.git
 	branch = release/teak
+
+[submodule "edx-platform"]
+	path = edx-platform
+	url = https://github.com/williamsmiths/edx-platform.git
+	branch = cvs_dev
+
