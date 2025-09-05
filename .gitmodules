@@ -2,21 +2,27 @@
 [submodule "edx-platform"]
 	path = edx-platform
 	url = https://github.com/williamsmiths/edx-platform.git
-	branch = feature/development-branch
+	branch = release/teak
 
 [submodule "frontend-app-learner-dashboard"]
 	path = frontend-app-learner-dashboard
 	url = https://github.com/williamsmiths/frontend-app-learner-dashboard.git
 	branch = release/teak
 
-
 [submodule "frontend-app-learning"]
 	path = frontend-app-learning
 	url = https://github.com/williamsmiths/frontend-app-learning.git
 	branch = release/teak
 
-
 [submodule "frontend-app-authn"]
 	path = frontend-app-authn
 	url = https://github.com/williamsmiths/frontend-app-authn.git
 	branch = release/teak
+[submodule "frontend-app-profile"]
+	path = frontend-app-profile
+	url = https://github.com/williamsmiths/frontend-app-profile.git
+	branch = master
+[submodule "frontend-component-header"]
+	path = frontend-component-header
+	url = https://github.com/williamsmiths/frontend-component-header.git
+	branch = master

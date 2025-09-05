@@ -3,6 +3,8 @@
 # add submodule
 git submodule add -b main <URL_REPO> <THƯ_MỤC>
 
+git submodule add -b master https://github.com/williamsmiths/frontend-component-header.git
+
 # clone with submodules
 git clone --recurse-submodules <URL_REPO>
 git submodule update --init --recursive
@@ -26,9 +28,9 @@ git commit -m "Update submodule lib to latest commit"
 git push origin main
 
 # remove submodule
-git submodule deinit -f -- <THƯ_MỤC>
-rm -rf .git/modules/<THƯ_MỤC>
-git rm -f <THƯ_MỤC>
+git submodule deinit -f -- frontend-app-catalog<THƯ_MỤC>
+rm -rf .git/modules/frontend-app-catalog <THƯ_MỤC>
+git rm -f  frontend-app-catalog  <THƯ_MỤC>
 
 # check & sync
 git submodule status

@@ -6,6 +6,9 @@
 .. _Learner Home MFE: https://github.com/williamsmiths/frontend-app-learner-dashboard
 .. _Learning MFE: https://github.com/williamsmiths/frontend-app-learning/
 
+git pull --recurse-submodules
+
+git submodule update --remote --merge --recursive
 
 Tutor: the Docker-based Open edX distribution designed for peace of mind
 ========================================================================
