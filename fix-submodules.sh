@@ -1,18 +1,22 @@
 #!/bin/bash
 
-# Script để fix submodules về đúng branch release/teak
+# Script để pull main repository và fix submodules về đúng branch
 # Sử dụng: ./fix-submodules.sh
 
-echo "🔧 Đang fix submodules về branch release/teak..."
+echo "🔧 Đang pull main repository và fix submodules về đúng branch..."
 
 # Chuyển về thư mục gốc
 cd "$(dirname "$0")"
 
-# 1. Update tất cả submodules
-echo "📥 Đang update submodules..."
+# 1. Pull main repository
+echo "📥 Đang pull main repository..."
+git pull origin dev
+
+# 2. Update tất cả submodules
+echo "📦 Đang update submodules..."
 git submodule update --init --recursive
 
-# 2. Chuyển tất cả submodules về branch được setup trong .gitmodules
+# 3. Chuyển tất cả submodules về branch được setup trong .gitmodules
 echo "🔄 Đang chuyển submodules về branch được setup trong .gitmodules..."
 git submodule foreach '
     echo "  📁 Đang xử lý: $(basename $(pwd))"
@@ -33,7 +37,7 @@ git submodule foreach '
     fi
 '
 
-# 3. Dọn dẹp các file không cần thiết
+# 4. Dọn dẹp các file không cần thiết
 echo "🧹 Đang dọn dẹp files không cần thiết..."
 
 # Dọn dẹp frontend-app-learner-dashboard
@@ -42,13 +46,14 @@ if [ -f "frontend-app-learner-dashboard/webpack.dev-tutor.config.js" ]; then
     rm -f frontend-app-learner-dashboard/webpack.dev-tutor.config.js
 fi
 
-# 4. Kiểm tra trạng thái
+# 5. Kiểm tra trạng thái
 echo "✅ Hoàn thành! Trạng thái submodules:"
 echo ""
 git submodule status
 
 echo ""
 echo "📋 Tóm tắt:"
-echo "  - Tất cả submodules đã được chuyển về branch được setup trong .gitmodules"
+echo "  - Main repository đã được pull"
+echo "  - Tất cả submodules đã được update và chuyển về branch được setup trong .gitmodules"
 echo "  - Files không cần thiết đã được dọn dẹp"
-echo "  - Submodules sẵn sàng sử dụng"
+echo "  - Hệ thống sẵn sàng sử dụng"
