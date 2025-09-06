@@ -12,13 +12,25 @@ cd "$(dirname "$0")"
 echo "📥 Đang update submodules..."
 git submodule update --init --recursive
 
-# 2. Chuyển tất cả submodules về branch release/teak
-echo "🔄 Đang chuyển submodules về branch release/teak..."
+# 2. Chuyển tất cả submodules về branch được setup trong .gitmodules
+echo "🔄 Đang chuyển submodules về branch được setup trong .gitmodules..."
 git submodule foreach '
     echo "  📁 Đang xử lý: $(basename $(pwd))"
     git fetch origin
-    git checkout release/teak
-    git pull origin release/teak
+    
+    # Lấy branch từ .gitmodules
+    submodule_name=$(basename $(pwd))
+    branch=$(git config -f ../.gitmodules submodule.$submodule_name.branch)
+    
+    if [ -n "$branch" ]; then
+        echo "    🎯 Branch được setup: $branch"
+        git checkout $branch
+        git pull origin $branch
+    else
+        echo "    ⚠️  Không tìm thấy branch trong .gitmodules, sử dụng default"
+        git checkout main || git checkout master
+        git pull origin main || git pull origin master
+    fi
 '
 
 # 3. Dọn dẹp các file không cần thiết
@@ -37,6 +49,6 @@ git submodule status
 
 echo ""
 echo "📋 Tóm tắt:"
-echo "  - Tất cả submodules đã được chuyển về branch release/teak"
+echo "  - Tất cả submodules đã được chuyển về branch được setup trong .gitmodules"
 echo "  - Files không cần thiết đã được dọn dẹp"
 echo "  - Submodules sẵn sàng sử dụng"
