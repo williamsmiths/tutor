@@ -4,9 +4,7 @@
 
     # Alias để pull submodules
     setup = "!./setup.sh"
-    
-    # Alias để pull submodules an toàn
-    pullsub = "!./pull-submodules.sh"
+
     
     # Alias để pull tất cả submodules với remote
     pullall = "submodule update --init --recursive --remote"
