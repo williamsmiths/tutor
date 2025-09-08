@@ -19,3 +19,7 @@
 	path = edx-platform
 	url = https://github.com/williamsmiths/edx-platform.git
 	branch = cvs_dev
+[submodule "tutor-indigo"]
+	path = tutor-indigo
+	url = https://github.com/williamsmiths/tutor-indigo.git
+	branch = release
