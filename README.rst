@@ -8,7 +8,7 @@
 
 git pull --recurse-submodules
 
-git submodule update --remote --merge --recursive
+git submodule update --init --recursive
 
 Tutor: the Docker-based Open edX distribution designed for peace of mind
 ========================================================================
