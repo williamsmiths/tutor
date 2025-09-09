@@ -8,6 +8,26 @@
 
 git pull --recurse-submodules
 
+tutor config save --set DOCKER_IMAGE_OPENEDX_MFE=konghuan42/openedx-mfe:v20.0.7
+ nano /home/cvs/.local/share/tutor/config.yml
+docker ps | grep mfe
+grep image ~/.local/share/tutor/env/local/docker-compose.yml | grep mfe
+nano ~/.local/share/tutor/env/local/docker-compose.override.yml
+tutor local stop mfe
+docker rm -f tutor_local-mfe-1
+docker rmi overhangio/openedx-mfe:20.0.0-indigo
+tutor local restart mfe
+
+
+docker inspect tutor_local-mfe-1 | grep Image
+
+
+tutor config save --set MFE_DOCKER_IMAGE=konghuan42/openedx-mfe:v20.0.8
+docker stop tutor_local-mfe-1
+docker rm -f tutor_local-mfe-1
+tutor config save
+tutor local start -d
+
 git submodule update --init --recursive
 
 Tutor: the Docker-based Open edX distribution designed for peace of mind

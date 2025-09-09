@@ -1,0 +1,23 @@
+version: "3.8"
+services:
+  minio:
+    image: minio/minio
+    container_name: minio
+    command: server /data --console-address ":9001"   # Khởi động MinIO với console trên port 9001
+    environment:
+      MINIO_ACCESS_KEY: "minioadmin"     # Khoá truy cập API S3
+      MINIO_SECRET_KEY: "Dtu@2025"       # Khoá bí mật API S3
+    ports:
+      - "9000:9000"   # API S3 (để kết nối từ Open edX hoặc các ứng dụng khác)
+      - "9001:9001"   # MinIO Console (UI)
+    volumes:
+      - /srv/minio/data:/data  # Dữ liệu của MinIO sẽ được lưu trữ trong thư mục /srv/minio/data
+    restart: unless-stopped
+    networks:
+      - minio-network
+    extra_hosts:
+      - "host.docker.internal:host-gateway"  # Thêm để hỗ trợ kết nối trong môi trường Docker
+
+networks:
+  minio-network:
+    driver: bridge
