@@ -23,3 +23,15 @@
 	path = tutor-indigo
 	url = https://github.com/williamsmiths/tutor-indigo.git
 	branch = release
+[submodule "frontend-app-authoring"]
+	path = frontend-app-authoring
+	url = https://github.com/williamsmiths/frontend-app-authoring.git
+	branch = release/teak
+[submodule "frontend-app-profile"]
+	path = frontend-app-profile
+	url = https://github.com/williamsmiths/frontend-app-profile.git
+	branch = release/teak
+[submodule "frontend-app-discussions"]
+	path = frontend-app-discussions
+	url = https://github.com/williamsmiths/frontend-app-discussions.git
+	branch = release/teak
