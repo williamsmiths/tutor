@@ -35,3 +35,7 @@
 	path = frontend-app-discussions
 	url = https://github.com/williamsmiths/frontend-app-discussions.git
 	branch = release/teak
+[submodule "frontend-app-account"]
+	path = frontend-app-account
+	url = https://github.com/williamsmiths/frontend-app-account.git
+	branch = release/teak
