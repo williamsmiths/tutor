@@ -233,7 +233,15 @@ main() {
     print_info "  - ${TARGET_REGISTRY}/${IMAGE_NAME}:${new_version}"
     echo ""
     print_info "Bạn có thể cấu hình tutor để sử dụng image mới:"
-    print_info "tutor config save --set DOCKER_IMAGE_MFE=${TARGET_REGISTRY}/${IMAGE_NAME}:${latest_version}"
+    print_info "tutor config save --set MFE_DOCKER_IMAGE=${TARGET_REGISTRY}/${IMAGE_NAME}:${new_version}"
+    echo ""
+    print_info "Gợi ý cập nhật runtime sau khi đổi image (tuỳ chọn):"
+    print_info "docker stop tutor_local-mfe-1 || true"
+    print_info "docker rm -f tutor_local-mfe-1 || true"
+    print_info "docker rmi ${TARGET_REGISTRY}/${IMAGE_NAME}:${latest_version} || true"
+    print_info "tutor config save"
+    print_info "tutor local start -d"
+    
 }
 
 # Check if version is provided as argument
@@ -260,6 +268,15 @@ if [ $# -eq 1 ]; then
             print_info "Images đã được push:"
             print_info "  - ${TARGET_REGISTRY}/${IMAGE_NAME}:${VERSION}"
             print_info "  - ${TARGET_REGISTRY}/${IMAGE_NAME}:${new_version}"
+            print_info "Bạn có thể cấu hình tutor để sử dụng image mới:"
+            print_info "tutor config save --set MFE_DOCKER_IMAGE=${TARGET_REGISTRY}/${IMAGE_NAME}:${new_version}"
+            echo ""
+            print_info "Gợi ý cập nhật runtime sau khi đổi image (tuỳ chọn):"
+            print_info "docker stop tutor_local-mfe-1 || true"
+            print_info "docker rm -f tutor_local-mfe-1 || true"
+            print_info "docker rmi ${TARGET_REGISTRY}/${IMAGE_NAME}:${VERSION} || true"
+            print_info "tutor config save"
+            print_info "tutor local start -d"
         fi
     fi
 else
