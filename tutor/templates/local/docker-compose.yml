@@ -52,6 +52,8 @@ services:
       - ../../data/mysql:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: "{{ MYSQL_ROOT_PASSWORD }}"
+    ports:
+      - "3306:3306"
   {%- endif %}
 
   {% if RUN_MEILISEARCH -%}

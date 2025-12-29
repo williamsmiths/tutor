@@ -1,0 +1,1142 @@
+{
+  "info": {
+    "name": "Open edX Platform APIs",
+    "description": "Tổng hợp 287 API endpoints từ Open edX LMS Platform. Base URL: {{base_url}}/api",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_postman_id": "edx-platform-api-collection",
+    "version": "1.0.0"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "type": "string"
+    },
+    {
+      "key": "jwt_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "csrf_token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{jwt_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Get CSRF Token",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/csrf/api/v1/token",
+              "host": ["{{base_url}}"],
+              "path": ["csrf", "api", "v1", "token"]
+            },
+            "description": "Lấy CSRF token để sử dụng cho các POST request"
+          }
+        },
+        {
+          "name": "Login Session",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRFToken",
+                "value": "{{csrf_token}}"
+              },
+              {
+                "key": "Referer",
+                "value": "{{base_url}}/login"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin001\",\n  \"password\": \"123123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/user/v1/account/login_session/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "user", "v1", "account", "login_session"]
+            },
+            "description": "Đăng nhập và tạo session. Lưu ý: Field là 'email' (không phải email_or_username), có thể dùng username hoặc email. Yêu cầu CSRF token và Referer header."
+          }
+        },
+        {
+          "name": "Get JWT Token",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                },
+                {
+                  "key": "client_id",
+                  "value": "your_client_id"
+                },
+                {
+                  "key": "client_secret",
+                  "value": "your_client_secret"
+                },
+                {
+                  "key": "token_type",
+                  "value": "jwt"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/oauth2/v1/access_token",
+              "host": ["{{base_url}}"],
+              "path": ["oauth2", "v1", "access_token"]
+            },
+            "description": "Lấy JWT token để xác thực API"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Courses",
+      "item": [
+        {
+          "name": "List All Courses",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/courses/v1/courses/?page=1&page_size=20",
+              "host": ["{{base_url}}"],
+              "path": ["api", "courses", "v1", "courses"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "page_size",
+                  "value": "20"
+                },
+                {
+                  "key": "active_only",
+                  "value": "true",
+                  "disabled": true
+                },
+                {
+                  "key": "org",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "search_term",
+                  "value": "",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Lấy danh sách tất cả courses (public API, không cần auth)"
+          }
+        },
+        {
+          "name": "Get Course Detail",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/courses/v1/courses/:course_id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "courses", "v1", "courses", ":course_id"],
+              "variable": [
+                {
+                  "key": "course_id",
+                  "value": "course-v1:edX+DemoX+Demo_Course"
+                }
+              ]
+            },
+            "description": "Lấy thông tin chi tiết một course"
+          }
+        },
+        {
+          "name": "Get Course Blocks",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/courses/v1/blocks/?course_id=:course_id&depth=all&all_blocks=true",
+              "host": ["{{base_url}}"],
+              "path": ["api", "courses", "v1", "blocks"],
+              "query": [
+                {
+                  "key": "course_id",
+                  "value": ":course_id"
+                },
+                {
+                  "key": "depth",
+                  "value": "all"
+                },
+                {
+                  "key": "all_blocks",
+                  "value": "true"
+                },
+                {
+                  "key": "username",
+                  "value": "",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Lấy cấu trúc blocks của course (chapters, sequences, units)"
+          }
+        },
+        {
+          "name": "Get Course Metadata",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/course_home/course_metadata/:course_id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "course_home", "course_metadata", ":course_id"],
+              "variable": [
+                {
+                  "key": "course_id",
+                  "value": "course-v1:edX+DemoX+Demo_Course"
+                }
+              ]
+            },
+            "description": "Lấy metadata của course"
+          }
+        },
+        {
+          "name": "Get Course Outline",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/course_home/outline/:course_id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "course_home", "outline", ":course_id"],
+              "variable": [
+                {
+                  "key": "course_id",
+                  "value": "course-v1:edX+DemoX+Demo_Course"
+                }
+              ]
+            },
+            "description": "Lấy outline (cấu trúc) của course"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Enrollment",
+      "item": [
+        {
+          "name": "Get User Enrollments",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/enrollment/v1/enrollment?user=:username",
+              "host": ["{{base_url}}"],
+              "path": ["api", "enrollment", "v1", "enrollment"],
+              "query": [
+                {
+                  "key": "user",
+                  "value": ":username"
+                }
+              ],
+              "variable": [
+                {
+                  "key": "username",
+                  "value": "student"
+                }
+              ]
+            },
+            "description": "Lấy danh sách courses mà user đã enroll"
+          }
+        },
+        {
+          "name": "Enroll in Course",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"course_details\": {\n    \"course_id\": \"course-v1:edX+DemoX+Demo_Course\"\n  },\n  \"user\": \"student\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/enrollment/v1/enrollment",
+              "host": ["{{base_url}}"],
+              "path": ["api", "enrollment", "v1", "enrollment"]
+            },
+            "description": "Enroll user vào course"
+          }
+        },
+        {
+          "name": "Unenroll from Course",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"course_id\": \"course-v1:edX+DemoX+Demo_Course\",\n  \"user\": \"student\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/enrollment/v1/unenroll/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "enrollment", "v1", "unenroll"]
+            },
+            "description": "Unenroll user khỏi course"
+          }
+        },
+        {
+          "name": "Bulk Enroll",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"auto_enroll\": true,\n  \"email_students\": true,\n  \"action\": \"enroll\",\n  \"courses\": \"course-v1:edX+Demo+123,course-v1:edX+Demo2+456\",\n  \"identifiers\": \"student1@example.com,student2@example.com\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/bulk_enroll/v1/bulk_enroll",
+              "host": ["{{base_url}}"],
+              "path": ["api", "bulk_enroll", "v1", "bulk_enroll"]
+            },
+            "description": "Enroll nhiều users vào nhiều courses cùng lúc"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Certificates",
+      "item": [
+        {
+          "name": "Get User Certificates",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/certificates/v0/certificates/:username/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "certificates", "v0", "certificates", ":username"],
+              "variable": [
+                {
+                  "key": "username",
+                  "value": "student"
+                }
+              ]
+            },
+            "description": "Lấy danh sách certificates của user"
+          }
+        },
+        {
+          "name": "Get Certificate for Course",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/certificates/v0/certificates/:username/courses/:course_id/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "certificates", "v0", "certificates", ":username", "courses", ":course_id"],
+              "variable": [
+                {
+                  "key": "username",
+                  "value": "student"
+                },
+                {
+                  "key": "course_id",
+                  "value": "course-v1:edX+DemoX+Demo_Course"
+                }
+              ]
+            },
+            "description": "Lấy certificate của user cho course cụ thể"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Grades & Progress",
+      "item": [
+        {
+          "name": "Get Course Grades",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/grades/v1/courses/:course_id/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "grades", "v1", "courses", ":course_id"],
+              "variable": [
+                {
+                  "key": "course_id",
+                  "value": "course-v1:edX+DemoX+Demo_Course"
+                }
+              ]
+            },
+            "description": "Lấy điểm của user trong course"
+          }
+        },
+        {
+          "name": "Get Course Progress",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/course_home/progress/:course_id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "course_home", "progress", ":course_id"],
+              "variable": [
+                {
+                  "key": "course_id",
+                  "value": "course-v1:edX+DemoX+Demo_Course"
+                }
+              ]
+            },
+            "description": "Lấy tiến độ học tập của user trong course"
+          }
+        },
+        {
+          "name": "Get Gradebook",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/grades/v1/gradebook/:course_id/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "grades", "v1", "gradebook", ":course_id"],
+              "variable": [
+                {
+                  "key": "course_id",
+                  "value": "course-v1:edX+DemoX+Demo_Course"
+                }
+              ]
+            },
+            "description": "Lấy gradebook (bảng điểm) của course (cần quyền instructor)"
+          }
+        }
+      ]
+    },
+    {
+      "name": "User Profile",
+      "item": [
+        {
+          "name": "Get User Info",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/user/v1/accounts/:username",
+              "host": ["{{base_url}}"],
+              "path": ["api", "user", "v1", "accounts", ":username"],
+              "variable": [
+                {
+                  "key": "username",
+                  "value": "student"
+                }
+              ]
+            },
+            "description": "Lấy thông tin profile của user"
+          }
+        },
+        {
+          "name": "Get My User Info (Mobile)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/mobile/v1/my_user_info",
+              "host": ["{{base_url}}"],
+              "path": ["api", "mobile", "v1", "my_user_info"]
+            },
+            "description": "Lấy thông tin user hiện tại (mobile API)"
+          }
+        },
+        {
+          "name": "Update User Profile",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"John Doe\",\n  \"bio\": \"Software Developer\",\n  \"country\": \"VN\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/user/v1/accounts/:username",
+              "host": ["{{base_url}}"],
+              "path": ["api", "user", "v1", "accounts", ":username"],
+              "variable": [
+                {
+                  "key": "username",
+                  "value": "student"
+                }
+              ]
+            },
+            "description": "Cập nhật thông tin profile của user"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Discussions",
+      "item": [
+        {
+          "name": "Get Course Topics",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/discussion/v1/course_topics/:course_id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "discussion", "v1", "course_topics", ":course_id"],
+              "variable": [
+                {
+                  "key": "course_id",
+                  "value": "course-v1:edX+DemoX+Demo_Course"
+                }
+              ]
+            },
+            "description": "Lấy danh sách topics discussion trong course"
+          }
+        },
+        {
+          "name": "List Threads",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/discussion/v1/threads/?course_id=:course_id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "discussion", "v1", "threads"],
+              "query": [
+                {
+                  "key": "course_id",
+                  "value": ":course_id"
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "disabled": true
+                },
+                {
+                  "key": "page_size",
+                  "value": "20",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Lấy danh sách threads discussion"
+          }
+        },
+        {
+          "name": "Create Thread",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"course_id\": \"course-v1:edX+DemoX+Demo_Course\",\n  \"topic_id\": \"general\",\n  \"type\": \"discussion\",\n  \"title\": \"My Discussion Thread\",\n  \"raw_body\": \"This is the content of the thread\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/discussion/v1/threads/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "discussion", "v1", "threads"]
+            },
+            "description": "Tạo discussion thread mới"
+          }
+        },
+        {
+          "name": "Get Thread Detail",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/discussion/v1/threads/:thread_id/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "discussion", "v1", "threads", ":thread_id"],
+              "variable": [
+                {
+                  "key": "thread_id",
+                  "value": "thread123"
+                }
+              ]
+            },
+            "description": "Lấy chi tiết một discussion thread"
+          }
+        },
+        {
+          "name": "Create Comment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"thread_id\": \"thread123\",\n  \"raw_body\": \"This is my comment\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/discussion/v1/comments/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "discussion", "v1", "comments"]
+            },
+            "description": "Tạo comment trong discussion thread"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Bookmarks",
+      "item": [
+        {
+          "name": "List Bookmarks",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/bookmarks/v1/bookmarks/?course_id=:course_id&fields=display_name,path",
+              "host": ["{{base_url}}"],
+              "path": ["api", "bookmarks", "v1", "bookmarks"],
+              "query": [
+                {
+                  "key": "course_id",
+                  "value": ":course_id"
+                },
+                {
+                  "key": "fields",
+                  "value": "display_name,path"
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Lấy danh sách bookmarks của user"
+          }
+        },
+        {
+          "name": "Create Bookmark",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"usage_id\": \"block-v1:edX+DemoX+Demo_Course+type@vertical+block@12345\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/bookmarks/v1/bookmarks/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "bookmarks", "v1", "bookmarks"]
+            },
+            "description": "Tạo bookmark mới cho một block"
+          }
+        },
+        {
+          "name": "Delete Bookmark",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/bookmarks/v1/bookmarks/:username,:usage_id/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "bookmarks", "v1", "bookmarks", ":username,:usage_id"],
+              "variable": [
+                {
+                  "key": "username",
+                  "value": "student"
+                },
+                {
+                  "key": "usage_id",
+                  "value": "block-v1:edX+DemoX+Demo_Course+type@vertical+block@12345"
+                }
+              ]
+            },
+            "description": "Xóa bookmark"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Cohorts",
+      "item": [
+        {
+          "name": "List Cohorts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/cohorts/v1/courses/:course_id/cohorts/0",
+              "host": ["{{base_url}}"],
+              "path": ["api", "cohorts", "v1", "courses", ":course_id", "cohorts", "0"],
+              "variable": [
+                {
+                  "key": "course_id",
+                  "value": "course-v1:edX+DemoX+Demo_Course"
+                }
+              ]
+            },
+            "description": "Lấy danh sách cohorts trong course"
+          }
+        },
+        {
+          "name": "Create Cohort",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"My Cohort\",\n  \"assignment_type\": \"manual\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/cohorts/v1/courses/:course_id/cohorts/0",
+              "host": ["{{base_url}}"],
+              "path": ["api", "cohorts", "v1", "courses", ":course_id", "cohorts", "0"],
+              "variable": [
+                {
+                  "key": "course_id",
+                  "value": "course-v1:edX+DemoX+Demo_Course"
+                }
+              ]
+            },
+            "description": "Tạo cohort mới trong course"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Commerce",
+      "item": [
+        {
+          "name": "List Courses with Modes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/commerce/v1/courses/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "commerce", "v1", "courses"]
+            },
+            "description": "Lấy danh sách courses với các enrollment modes (audit, verified, etc.)"
+          }
+        },
+        {
+          "name": "Get Course Modes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/course_modes/v1/courses/:course_id/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "course_modes", "v1", "courses", ":course_id"],
+              "variable": [
+                {
+                  "key": "course_id",
+                  "value": "course-v1:edX+DemoX+Demo_Course"
+                }
+              ]
+            },
+            "description": "Lấy danh sách enrollment modes của course"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Mobile API",
+      "item": [
+        {
+          "name": "Get User Course Enrollments (Mobile)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/mobile/v1/users/:username/course_enrollments/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "mobile", "v1", "users", ":username", "course_enrollments"],
+              "variable": [
+                {
+                  "key": "username",
+                  "value": "student"
+                }
+              ]
+            },
+            "description": "Lấy danh sách enrollments của user (Mobile API)"
+          }
+        },
+        {
+          "name": "Get Course Updates",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/mobile/v1/course_info/:course_id/updates",
+              "host": ["{{base_url}}"],
+              "path": ["api", "mobile", "v1", "course_info", ":course_id", "updates"],
+              "variable": [
+                {
+                  "key": "course_id",
+                  "value": "course-v1:edX+DemoX+Demo_Course"
+                }
+              ]
+            },
+            "description": "Lấy course updates/announcements"
+          }
+        },
+        {
+          "name": "Get Course Handouts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/mobile/v1/course_info/:course_id/handouts",
+              "host": ["{{base_url}}"],
+              "path": ["api", "mobile", "v1", "course_info", ":course_id", "handouts"],
+              "variable": [
+                {
+                  "key": "course_id",
+                  "value": "course-v1:edX+DemoX+Demo_Course"
+                }
+              ]
+            },
+            "description": "Lấy course handouts"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Notifications",
+      "item": [
+        {
+          "name": "List Notifications",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/notifications/?page=1&page_size=20",
+              "host": ["{{base_url}}"],
+              "path": ["api", "notifications"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "page_size",
+                  "value": "20"
+                }
+              ]
+            },
+            "description": "Lấy danh sách notifications của user"
+          }
+        },
+        {
+          "name": "Get Notification Count",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/notifications/count/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "notifications", "count"]
+            },
+            "description": "Lấy số lượng notifications chưa đọc"
+          }
+        },
+        {
+          "name": "Mark Notifications as Read",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"notification_ids\": [1, 2, 3]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/notifications/read/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "notifications", "read"]
+            },
+            "description": "Đánh dấu notifications là đã đọc"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Proctoring (Exams)",
+      "item": [
+        {
+          "name": "Get Active Exams for User",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/edx_proctoring/v1/proctored_exam/active_exams_for_user",
+              "host": ["{{base_url}}"],
+              "path": ["api", "edx_proctoring", "v1", "proctored_exam", "active_exams_for_user"]
+            },
+            "description": "Lấy danh sách exams đang active của user"
+          }
+        },
+        {
+          "name": "Get Exam Attempt",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/edx_proctoring/v1/proctored_exam/attempt/:attempt_id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "edx_proctoring", "v1", "proctored_exam", "attempt", ":attempt_id"],
+              "variable": [
+                {
+                  "key": "attempt_id",
+                  "value": "123"
+                }
+              ]
+            },
+            "description": "Lấy thông tin về exam attempt"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Instructor Tools",
+      "item": [
+        {
+          "name": "Generate Problem Responses Report",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/instructor/v1/reports/:course_id/generate/problem_responses",
+              "host": ["{{base_url}}"],
+              "path": ["api", "instructor", "v1", "reports", ":course_id", "generate", "problem_responses"],
+              "variable": [
+                {
+                  "key": "course_id",
+                  "value": "course-v1:edX+DemoX+Demo_Course"
+                }
+              ]
+            },
+            "description": "Tạo report về problem responses (cần quyền instructor)"
+          }
+        },
+        {
+          "name": "Get Instructor Tasks",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/instructor/v1/tasks/:course_id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "instructor", "v1", "tasks", ":course_id"],
+              "variable": [
+                {
+                  "key": "course_id",
+                  "value": "course-v1:edX+DemoX+Demo_Course"
+                }
+              ]
+            },
+            "description": "Lấy danh sách tasks của instructor"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Completion & Tracking",
+      "item": [
+        {
+          "name": "Update Completion (Batch)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"blocks\": [\n    {\n      \"block_key\": \"block-v1:edX+DemoX+Demo_Course+type@video+block@123\",\n      \"completion\": 1.0\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/completion/v1/completion-batch",
+              "host": ["{{base_url}}"],
+              "path": ["api", "completion", "v1", "completion-batch"]
+            },
+            "description": "Cập nhật completion status của nhiều blocks"
+          }
+        },
+        {
+          "name": "Get Subsection Completion",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/completion/v1/subsection-completion/:username/:course_key/:subsection_id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "completion", "v1", "subsection-completion", ":username", ":course_key", ":subsection_id"],
+              "variable": [
+                {
+                  "key": "username",
+                  "value": "student"
+                },
+                {
+                  "key": "course_key",
+                  "value": "course-v1:edX+DemoX+Demo_Course"
+                },
+                {
+                  "key": "subsection_id",
+                  "value": "block-v1:edX+DemoX+Demo_Course+type@sequential+block@123"
+                }
+              ]
+            },
+            "description": "Lấy completion status của một subsection"
+          }
+        }
+      ]
+    },
+    {
+      "name": "ORA (Open Response Assessment)",
+      "item": [
+        {
+          "name": "Initialize ORA Staff Grader",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/ora_staff_grader/initialize?course_id=:course_id&item_id=:item_id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "ora_staff_grader", "initialize"],
+              "query": [
+                {
+                  "key": "course_id",
+                  "value": ":course_id"
+                },
+                {
+                  "key": "item_id",
+                  "value": ":item_id"
+                }
+              ]
+            },
+            "description": "Khởi tạo ORA staff grading interface"
+          }
+        },
+        {
+          "name": "Get Submissions for Grading",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/ora_staff_grader/submission",
+              "host": ["{{base_url}}"],
+              "path": ["api", "ora_staff_grader", "submission"]
+            },
+            "description": "Lấy danh sách submissions cần grade"
+          }
+        },
+        {
+          "name": "Grade Submission",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"submission_uuid\": \"abc123\",\n  \"grade_data\": {\n    \"criteria\": [\n      {\n        \"name\": \"Ideas\",\n        \"option\": \"Good\",\n        \"feedback\": \"Well done\"\n      }\n    ]\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/ora_staff_grader/submission/grade",
+              "host": ["{{base_url}}"],
+              "path": ["api", "ora_staff_grader", "submission", "grade"]
+            },
+            "description": "Chấm điểm ORA submission"
+          }
+        }
+      ]
+    }
+  ]
+}
+
