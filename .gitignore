@@ -7,6 +7,9 @@ __pycache__
 /build/
 /dist/
 
+/crm-example
+
+
 # Unit test/ coverage reports
 .coverage
 /htmlcov/
